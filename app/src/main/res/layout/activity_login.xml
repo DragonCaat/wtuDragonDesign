@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange"
+    tools:context=".activity.LoginActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_input"
+        android:orientation="vertical" >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="center"
+            android:text="FIREFLY FOREST"
+            android:textColor="#ffffff"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="SHOW YOUR IDEAS"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_input"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <include
+            android:id="@+id/input_layout"
+            layout="@layout/input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/layout_progress" />
+
+        <include
+            android:id="@+id/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            layout="@layout/layout_progress"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/main_btn_login"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_layout"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="15dip"
+            android:background="@drawable/login_bg"
+            android:gravity="center"
+            android:paddingBottom="6dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="4dp"
+            android:text="登陆"
+            android:textColor="#ffff"
+            android:stateListAnimator="@drawable/anim_change"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,7 +1,9 @@
-package com.dragon.wtudragondesign;
+package com.dragon.wtudragondesign.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.dragon.wtudragondesign.R;
 
 public class MainActivity extends AppCompatActivity {
 
