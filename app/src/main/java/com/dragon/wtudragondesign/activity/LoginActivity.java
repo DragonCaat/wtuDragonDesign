@@ -25,7 +25,7 @@ import com.dragon.wtudragondesign.template.BaseActivity;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
-    private TextView mBtnLogin;
+    private TextView mBtnLogin, mBtnRegister, mBtnFindPass;
 
     private View progress;
 
@@ -43,24 +43,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         hideToolBar();
         loadMainUI(R.layout.activity_login);
-
         init();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void init() {
-        mBtnLogin = findViewById(R.id.main_btn_login);
-        progress = findViewById(R.id.layout_progress);
-        mInputLayout = findViewById(R.id.input_layout);
-        mName = findViewById(R.id.input_layout_name);
-        mPsw = findViewById(R.id.input_layout_psw);
+        mBtnLogin = fv(R.id.main_btn_login);
+        mBtnRegister = fv(R.id.tv_register);
+        mBtnRegister.setOnClickListener(this);
+        mBtnFindPass = fv(R.id.tv_find_pass);
+        mBtnFindPass.setOnClickListener(this);
+
+        progress = fv(R.id.layout_progress);
+        mInputLayout = fv(R.id.input_layout);
+        mName = fv(R.id.input_layout_name);
+        mPsw = fv(R.id.input_layout_psw);
 
         mEtName = fv(R.id.et_username);
         mEtPass = fv(R.id.et_password);
-
-
-
         initData();
 
         mBtnLogin.setOnClickListener(this);
@@ -72,11 +73,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         String userName = mEtName.getText().toString();
         String passWord = mEtName.getText().toString();
 
-        if (TextUtils.isEmpty(userName)|| TextUtils.isEmpty(passWord)){
+        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(passWord)) {
             showToast("用户名或者密码不能为空");
-        }else if (!"123".equals(userName) || !"123".equals(passWord)){
+        } else if (!"123".equals(userName) || !"123".equals(passWord)) {
             showToast("用户名或者密码错误");
-        }else {
+        } else {
             // 计算出控件的高与宽
             mWidth = mBtnLogin.getMeasuredWidth();
             mHeight = mBtnLogin.getMeasuredHeight();
@@ -107,8 +108,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view) {
-        initData();
-        //inputAnimator(mInputLayout, mWidth, mHeight);
+        switch (view.getId()) {
+            case R.id.main_btn_login:
+                initData();
+                break;
+            case R.id.tv_register:
+                skipPageWithAnim(RegisterActivity.class);
+                break;
+            case R.id.tv_find_pass:
+                skipPageWithAnim(FindPassActivity.class);
+                break;
+            default:
+                break;
+        }
+
     }
 
     /**
@@ -119,7 +132,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      * @param h    高
      */
     private void inputAnimator(final View view, float w, float h) {
-
         AnimatorSet set = new AnimatorSet();
 
         ValueAnimator animator = ValueAnimator.ofFloat(0, w);
