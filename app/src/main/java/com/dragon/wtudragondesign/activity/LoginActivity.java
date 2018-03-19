@@ -37,6 +37,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private EditText mEtName, mEtPass;
 
+    private String userName = "";
+    private String passWord = "";
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +73,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initData() {
-        String userName = mEtName.getText().toString();
-        String passWord = mEtName.getText().toString();
+        userName = mEtName.getText().toString();
+        passWord = mEtPass.getText().toString();
 
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(passWord)) {
             showToast("用户名或者密码不能为空");
