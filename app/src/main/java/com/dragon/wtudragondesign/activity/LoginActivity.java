@@ -17,10 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.template.BaseActivity;
 
 /**
  * Created by dragon on 2018/2/7.
+ * 登陆界面
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -40,7 +42,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private String userName = "";
     private String passWord = "";
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +108,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
