@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multiple-images-selector/multiple-images-selector.iml" filepath="$PROJECT_DIR$/multiple-images-selector/multiple-images-selector.iml" />
       <module fileurl="file://$PROJECT_DIR$/wtuDragonDesign.iml" filepath="$PROJECT_DIR$/wtuDragonDesign.iml" />
     </modules>
   </component>

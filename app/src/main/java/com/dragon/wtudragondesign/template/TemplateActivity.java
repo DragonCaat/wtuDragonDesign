@@ -5,9 +5,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.View;
+import android.view.Window;
 
 import com.dragon.wtudragondesign.R;
+import com.dragon.wtudragondesign.bean.Const;
 
 
 public class TemplateActivity extends AppCompatActivity {
@@ -16,12 +21,12 @@ public class TemplateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (Build.VERSION.SDK_INT > Const.ANDROID_SDK){
-//            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-//            getWindow().setEnterTransition(new Fade());
-//            getWindow().setExitTransition(new Fade());//explode:分解 fade:淡出 slide:滑动
-//
-//        }
+        if (Build.VERSION.SDK_INT > Const.ANDROID_SDK){
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+                getWindow().setEnterTransition(new Slide());
+           // getWindow().setExitTransition(new Fade());//explode:分解 fade:淡出 slide:滑动
+
+        }
         setContentView(R.layout.activity_template);
     }
     /**

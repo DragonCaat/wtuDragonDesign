@@ -4,44 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/orange"
-    tools:context=".activity.LoginActivity" >
+    tools:context=".activity.LoginActivity">
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ripple_with_color"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="#ffff"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rl_input"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dip"
             android:layout_height="80dip"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:gravity="center"
-            android:text="FIREFLY FOREST"
-            android:textColor="#ffffff"
-            android:textSize="24sp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="SHOW YOUR IDEAS"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:src="@mipmap/photo" />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rl_input"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" >
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp">
 
         <include
             android:id="@+id/input_layout"
@@ -53,9 +50,9 @@
 
         <include
             android:id="@+id/layout_progress"
+            layout="@layout/layout_progress"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            layout="@layout/layout_progress"
             android:visibility="gone" />
 
         <TextView
@@ -70,11 +67,28 @@
             android:paddingBottom="6dp"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
-            android:paddingTop="4dp"
+            android:paddingTop="6dp"
+            android:stateListAnimator="@drawable/anim_change"
             android:text="登陆"
             android:textColor="#ffff"
-            android:stateListAnimator="@drawable/anim_change"
             android:textSize="20sp" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_find_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/rl_input"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ripple_with_color"
+        android:gravity="center"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:text="忘记密码"
+        android:textColor="#ffff"
+        android:textSize="16sp" />
+
 
 </RelativeLayout>
