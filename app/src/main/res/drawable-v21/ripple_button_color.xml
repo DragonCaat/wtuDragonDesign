@@ -3,10 +3,9 @@
     android:color="@color/gray_bg">
     <item
         android:id="@android:id/mask"
-        android:drawable="@android:color/white" >
+        android:drawable="@color/colorPrimary" >
         <shape android:shape="oval">
-            <solid android:color="#ABCDEF" />
-            <corners android:radius="20dp" />
+            <solid android:color="@color/colorPrimary" />
         </shape>
 
     </item>

@@ -160,7 +160,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:background="@null"
-                android:inputType="textPassword"
                 android:maxLength="10"
                 android:textSize="20sp" />
 
@@ -192,6 +191,6 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_selector"
         android:text="确定" />
 </LinearLayout>

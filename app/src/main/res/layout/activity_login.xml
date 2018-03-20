@@ -8,8 +8,9 @@
 
     <TextView
         android:id="@+id/tv_register"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
@@ -66,7 +67,7 @@
             android:paddingBottom="6dp"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
-            android:paddingTop="4dp"
+            android:paddingTop="6dp"
             android:stateListAnimator="@drawable/anim_change"
             android:text="登陆"
             android:textColor="#ffff"

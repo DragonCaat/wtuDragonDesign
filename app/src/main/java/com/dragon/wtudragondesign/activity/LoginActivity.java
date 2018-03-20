@@ -65,7 +65,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         mEtName = fv(R.id.et_username);
         mEtPass = fv(R.id.et_password);
-        initData();
 
         mBtnLogin.setOnClickListener(this);
     }
