@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     private void initCourier() {
         mCourierList.clear();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             CourierEntity entity = new CourierEntity();
             entity.setContent("我是内容" + i);
             entity.setTitle("我是标题" + i);
