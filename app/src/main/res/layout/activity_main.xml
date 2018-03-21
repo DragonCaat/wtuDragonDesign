@@ -6,36 +6,60 @@
     android:layout_height="match_parent"
     tools:context="com.dragon.wtudragondesign.activity.MainActivity">
 
-    <android.support.design.widget.CoordinatorLayout
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_courier"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_main"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+                android:layout_height="50dp"
+                android:background="@color/orange">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="20dp"
-            android:layout_gravity="bottom|right"
-            android:backgroundTint="@color/colorPrimary"
-            android:src="@mipmap/write"
-            app:borderWidth="0dp"
-            app:elevation="8dp"
-            app:rippleColor="@android:color/holo_red_light" />
+                <TextView
+                    android:id="@+id/tv_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:drawableStart="@mipmap/menu"
+                    android:gravity="center"
+                    android:background="@drawable/ripple_with_color"
+                    android:padding="5dp"
+                    android:scaleType="center"
+                    android:textColor="@color/white_bg"
+                    android:textSize="16sp" />
 
-    </android.support.design.widget.CoordinatorLayout>
+                <TextView
+                    android:id="@+id/tv_head_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="主页"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <FrameLayout
+                android:id="@+id/main_contain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_bg" />
+        </LinearLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/nav_menu" />
+
+    </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

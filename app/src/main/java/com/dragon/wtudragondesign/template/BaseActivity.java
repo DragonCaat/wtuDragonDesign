@@ -21,19 +21,11 @@ import android.widget.Toast;
 import com.dragon.wtudragondesign.R;
 
 
-public abstract class BaseActivity extends TemplateActivity implements NavigationView.OnNavigationItemSelectedListener{
+public abstract class BaseActivity extends TemplateActivity{
 
     private TextView mTextViewTitle;
     private Toolbar toolbar;
-
-    private DrawerLayout mDrawerLayout;
-
-    private ImageView mImageView;
-
     private TextView mTvBack;
-
-    private NavigationView navView;
-
     //右边的文字
     private TextView mTextViewRight;
     //右边的图片
@@ -43,19 +35,6 @@ public abstract class BaseActivity extends TemplateActivity implements Navigatio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
-        mDrawerLayout = fv(R.id.drawer_layout);
-        mImageView = fv(R.id.iv_menu);
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDrawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-        navView = fv(R.id.nav_view);
-        navView.setNavigationItemSelectedListener(this);
-
         mTvBack = fv(R.id.tv_back);
         mTvBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,37 +136,5 @@ public abstract class BaseActivity extends TemplateActivity implements Navigatio
     }
     public void showToast(String string){
         Toast.makeText(getAct(), string,Toast.LENGTH_SHORT).show();
-    }
-
-
-    public void showMenuButton(){
-        mImageView.setVisibility(View.VISIBLE);
-    }
-    public void hideMenuButton(){
-        mImageView.setVisibility(View.GONE);
-    }
-
-    /**
-     * 侧滑栏的点击事件
-     * */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-//            case R.id.nav_weather:
-//                skipPage(LocationActivity.class);
-//
-//            case R.id.nav_news:
-//
-//                break;
-
-        }
-        return true;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mDrawerLayout.closeDrawers();
     }
 }

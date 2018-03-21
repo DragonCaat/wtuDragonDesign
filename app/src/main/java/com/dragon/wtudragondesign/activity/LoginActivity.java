@@ -16,11 +16,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.template.BaseActivity;
 
 /**
  * Created by dragon on 2018/2/7.
+ * 登陆界面
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -40,7 +42,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private String userName = "";
     private String passWord = "";
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mBtnLogin.setOnClickListener(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void initData() {
         userName = mEtName.getText().toString();
@@ -80,6 +80,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else if (!"123".equals(userName) || !"123".equals(passWord)) {
             showToast("用户名或者密码错误");
         } else {
+            mBtnLogin.setEnabled(false);
             // 计算出控件的高与宽
             mWidth = mBtnLogin.getMeasuredWidth();
             mHeight = mBtnLogin.getMeasuredHeight();
@@ -107,7 +108,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -222,5 +222,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         animator2.setDuration(500);
         animator2.setInterpolator(new AccelerateDecelerateInterpolator());
         animator2.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBtnLogin.setEnabled(true);
     }
 }
