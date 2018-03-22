@@ -35,7 +35,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     private SwipeRefreshLayout swipeRefresh;
 
     private FloatingActionButton mFabButton;
-    View view;
+    private View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     public void initData() {
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
         mRvMain.setLayoutManager(layoutManager);
         courierAdapter = new CourierAdapter(mCourierList);
         mRvMain.setAdapter(courierAdapter);
@@ -66,7 +66,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initCourier() {
         mCourierList.clear();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             CourierEntity entity = new CourierEntity();
             entity.setContent("我是内容" + i);
             entity.setTitle("我是标题" + i);

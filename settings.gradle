@@ -1,1 +1,1 @@
-include ':app', ':multiple-images-selector', ':library'
+include ':app', ':multiple-images-selector', ':library', ':IMLib', ':IMKit'
