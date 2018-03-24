@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 import com.dragon.wtudragondesign.R;
 
 /**
- * Created by Dragon on 2018/3/22.
- *
+ * Created by Dragon on 2018/3/24.
  * 我的界面
  */
 
-public class FragmentMessage extends Fragment {
+public class FragmentMy extends Fragment {
+
     View view;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_message, container,false);
+        view = inflater.inflate(R.layout.fragment_my, container,false);
         return view;
     }
 }

@@ -12,6 +12,8 @@ public class CourierEntity {
 
     private String content;
 
+    private String user;
+
     public String getPicUrl() {
         return picUrl;
     }
@@ -34,5 +36,13 @@ public class CourierEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

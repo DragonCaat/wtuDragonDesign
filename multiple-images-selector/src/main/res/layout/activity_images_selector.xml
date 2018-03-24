@@ -1,19 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include
         layout="@layout/selector_custom_actionbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/top_actionbar_height"/>
+        android:layout_height="@dimen/top_actionbar_height" />
 
     <FrameLayout
         android:id="@+id/selector_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="0dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,27 +20,25 @@
             android:layout_margin="0dp"
             android:background="@android:color/black">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/image_recycerview"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/image_recycerview"
                 android:layout_width="match_parent"
-                android:background="#ff888888"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-                android:layout_marginRight="10dp"
+                android:background="#ff888888"
                 android:paddingBottom="50dp"
                 tools:listitem="@layout/recyclerview_image_item"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="10dp" />
+                />
 
             <xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller
                 android:id="@+id/recyclerview_fast_scroller"
                 android:layout_width="@dimen/recyclerview_fast_scroller_width"
-                android:background="#f3f3f3"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginBottom="30dp"
+                android:background="#5BC4ED"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/selector_footer"
@@ -67,15 +64,15 @@
                     android:singleLine="true"
                     android:text="@string/selector_folder_all"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/selector_image_preview_button"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="@string/selector_preview"/>
+                    android:text="@string/selector_preview"
+                    android:visibility="gone" />
             </RelativeLayout>
 
         </RelativeLayout>

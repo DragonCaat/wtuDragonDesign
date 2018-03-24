@@ -87,7 +87,6 @@ public class AddNewCourierActivity extends BaseActivity implements View.OnClickL
         // start the selector
         startActivityForResult(intent, REQUEST_CODE);
     }
-
     @SuppressLint("DefaultLocale")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -126,7 +125,7 @@ public class AddNewCourierActivity extends BaseActivity implements View.OnClickL
     private void checkUserInput() {
         titleStr = mEtTitle.getText().toString().trim();
         contentStr = mEtContent.getText().toString().trim();
-        if (TextUtils.isEmpty(titleStr)|| TextUtils.isEmpty(titleStr)){
+        if (TextUtils.isEmpty(titleStr)|| TextUtils.isEmpty(contentStr)){
             showToast("红色 * 为必填内容");
         }else {
             //在此做网络上传工作

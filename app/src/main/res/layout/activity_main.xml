@@ -52,17 +52,11 @@
                 android:background="@color/gray_bg">
 
                 <FrameLayout
+                    android:paddingBottom="50dp"
                     android:id="@+id/main_contain"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_bg"
-                    android:paddingBottom="50dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_above="@+id/ll_bottom"
-                    android:background="@color/deeper_gray_bg" />
+                    android:background="@color/gray_bg" />
 
                 <LinearLayout
                     android:id="@+id/ll_bottom"
@@ -70,6 +64,7 @@
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
                     android:background="#ffffff"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp">

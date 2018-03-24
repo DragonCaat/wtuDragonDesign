@@ -16,12 +16,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.application.DragonApplication;
 import com.dragon.wtudragondesign.fragment.FragmentMain;
 import com.dragon.wtudragondesign.fragment.FragmentMessage;
+import com.dragon.wtudragondesign.fragment.FragmentMy;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -47,8 +50,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mIvMy;
     private TextView mTvMy;
 
+    //标题
+    private TextView mTvTitle;
+
     private FragmentMessage fragmentMessage;
     private FragmentMain fragmentMain;
+    private FragmentMy fragmentMy;
+
+    //nav的控件
+    private RelativeLayout mRlHead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,18 +98,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLlMy.setOnClickListener(listener);
         mIvMy = findViewById(R.id.iv_bottom_my);
         mTvMy = findViewById(R.id.tv_bottom_my);
+
+        mTvTitle = findViewById(R.id.tv_head_title);
+
+//        mRlHead = findViewById(R.id.nav_head);
+//        mRlHead.setOnClickListener(this);
+
     }
 
     public void initData() {
         fragmentMessage = new FragmentMessage();
         fragmentMain = new FragmentMain();
+        fragmentMy = new FragmentMy();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_contain, fragmentMain).commit();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
+            case R.id.nav_head:
+                Toast.makeText(this, "测试", Toast.LENGTH_SHORT).show();
+                break;
             default:
                 break;
         }
@@ -112,13 +131,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.nav_weather:
-//                skipPage(LocationActivity.class);
-//
-//            case R.id.nav_news:
-//
-//                break;
-
+            case R.id.nav_call:
+                Toast.makeText(this, "测试+1", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
         }
         return true;
     }
@@ -138,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mIvHome.setImageResource(R.mipmap.home_press);
                 mTvHome.setTextColor(getResources().getColor(R.color.colorPrimary));
                 fragmentTransaction.replace(R.id.main_contain, fragmentMain).commit();
+                mTvTitle.setText("主页");
             } else {
                 mIvHome.setImageResource(R.mipmap.home_normal);
                 mTvHome.setTextColor(getResources().getColor(R.color.gray));
@@ -147,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mIvMessage.setImageResource(R.mipmap.message_press);
                 mTvMessage.setTextColor(getResources().getColor(R.color.colorPrimary));
                 fragmentTransaction.replace(R.id.main_contain, fragmentMessage).commit();
+                mTvTitle.setText("消息");
             } else {
                 mIvMessage.setImageResource(R.mipmap.message_normal);
                 mTvMessage.setTextColor(getResources().getColor(R.color.gray));
@@ -155,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (view.getId() == R.id.ll_bottom_my) {
                 mIvMy.setImageResource(R.mipmap.my_press);
                 mTvMy.setTextColor(getResources().getColor(R.color.colorPrimary));
+                fragmentTransaction.replace(R.id.main_contain, fragmentMy).commit();
+                mTvTitle.setText("我的");
             } else {
                 mIvMy.setImageResource(R.mipmap.my_normal);
                 mTvMy.setTextColor(getResources().getColor(R.color.gray));
