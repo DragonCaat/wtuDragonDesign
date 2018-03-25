@@ -49,6 +49,8 @@
             android:theme="@style/CourierDetailsTheme"
             android:name=".activity.CourierDetailsActivity"/>
 
+        <activity android:name=".activity.SearchActivity"/>
+
     </application>
 
 </manifest>

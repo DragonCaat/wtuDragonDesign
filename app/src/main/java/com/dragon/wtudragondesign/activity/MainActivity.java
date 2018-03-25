@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,13 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dragon.wtudragondesign.R;
-import com.dragon.wtudragondesign.application.DragonApplication;
 import com.dragon.wtudragondesign.fragment.FragmentMain;
 import com.dragon.wtudragondesign.fragment.FragmentMessage;
 import com.dragon.wtudragondesign.fragment.FragmentMy;
-
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
