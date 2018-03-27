@@ -99,7 +99,6 @@ public class WelcomeActivity extends AppCompatActivity {
     TimerTask task = new TimerTask() {
         @Override
         public void run() {
-
             count--;
             Message message = new Message();
             message.what = 1;

@@ -9,16 +9,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.template.BaseActivity;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 /**
  * Created by dragon on 2018/2/7.
@@ -77,8 +81,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(passWord)) {
             showToast("用户名或者密码不能为空");
-        } else if (!"123".equals(userName) || !"123".equals(passWord)) {
-            showToast("用户名或者密码错误");
         } else {
             mBtnLogin.setEnabled(false);
             // 计算出控件的高与宽
@@ -101,8 +103,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     /**
                      * 要执行的操作
                      */
-                    skipPage(MainActivity.class);
-                    finish();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loginToEase();
+                        }
+                    });
                 }
             }.start();
         }
@@ -217,11 +223,34 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         params.rightMargin = 0;
         mInputLayout.setLayoutParams(params);
 
-
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(mInputLayout, "scaleX", 0.5f, 1f);
         animator2.setDuration(500);
         animator2.setInterpolator(new AccelerateDecelerateInterpolator());
         animator2.start();
+    }
+
+    private void loginToEase(){
+        EMClient.getInstance().login(userName, passWord,new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+                Log.i("#####################","成功");
+                skipPage(MainActivity.class);
+                finish();
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Log.d("main", "登录聊天服务器失败！");
+                recovery();
+            }
+        });
     }
 
     @Override

@@ -1,1 +1,1 @@
-include ':app', ':multiple-images-selector', ':library', ':IMLib', ':IMKit'
+include ':app', ':multiple-images-selector', ':easeui'

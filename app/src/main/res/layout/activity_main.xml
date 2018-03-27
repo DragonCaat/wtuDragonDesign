@@ -17,23 +17,19 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbar1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/orange">
 
-                <TextView
-                    android:id="@+id/tv_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circle_menu"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="left"
-                    android:background="@drawable/ripple_with_color"
-                    android:drawableStart="@mipmap/menu"
                     android:gravity="center"
-                    android:padding="5dp"
-                    android:scaleType="center"
-                    android:textColor="@color/white_bg"
-                    android:textSize="16sp" />
+                    android:padding="2dp"
+                    android:src="@mipmap/photo" />
 
                 <TextView
                     android:id="@+id/tv_head_title"
@@ -52,11 +48,11 @@
                 android:background="@color/gray_bg">
 
                 <FrameLayout
-                    android:paddingBottom="50dp"
                     android:id="@+id/main_contain"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_bg" />
+                    android:background="@color/gray_bg"
+                    android:paddingBottom="50dp" />
 
                 <LinearLayout
                     android:id="@+id/ll_bottom"

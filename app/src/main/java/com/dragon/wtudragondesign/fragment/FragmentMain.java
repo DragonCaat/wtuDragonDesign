@@ -15,11 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.activity.AddNewCourierActivity;
+import com.dragon.wtudragondesign.activity.SearchActivity;
 import com.dragon.wtudragondesign.adapter.CourierAdapter;
 import com.dragon.wtudragondesign.adapter.JDViewAdapter;
 import com.dragon.wtudragondesign.bean.AdverNotice;
@@ -42,6 +44,10 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     //快递信息的适配器
     private CourierAdapter courierAdapter;
     private List<CourierEntity> mCourierList = new ArrayList<>();
+
+    private CourierAdapter courierAdapter1;
+    private RecyclerView mRvVipCourier;
+
     //自定义的bannerView
     private CustomerViewPagerComponent customerViewPagerComponent;
     // banner图片资源
@@ -60,6 +66,9 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<AdverNotice> datas = new ArrayList<>();
 
     private ImageView mIvVipReward;
+
+    //搜索框
+    private TextView mTvSearchMain;
 
     @Nullable
     @Override
@@ -84,6 +93,9 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
         mIvVipReward = view.findViewById(R.id.iv_vip_reward);
 
+        mTvSearchMain = view.findViewById(R.id.tv_search_main);
+
+        mRvVipCourier = view.findViewById(R.id.rv_vip_reward);
     }
 
     public void initData() {
@@ -94,12 +106,22 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
         mRvMain.setAdapter(courierAdapter);
         mRvMain.setNestedScrollingEnabled(false);
 
+        //vip悬赏的recycleView
+        GridLayoutManager layoutManager1 = new GridLayoutManager(getActivity(), 2);
+        mRvVipCourier.setLayoutManager(layoutManager1);
+        //courierAdapter1 = new CourierAdapter(mCourierList);
+        mRvVipCourier.setAdapter(courierAdapter);
+        mRvVipCourier.setNestedScrollingEnabled(false);
+
+
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(this);
 
         mFabButton.setOnClickListener(this);
 
-        Glide.with(this).load(R.mipmap.banner4).transform(new CornersTransform(getContext(), 50)).into(mIvVipReward);
+        mTvSearchMain.setOnClickListener(this);
+
+        Glide.with(this).load(R.mipmap.vip).transform(new CornersTransform(getContext(), 30)).into(mIvVipReward);
 
         initJdNotice();
     }
@@ -152,6 +174,11 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
                 //在此做跳转界面，编写发布界面
                 Intent intent = new Intent(getActivity(), AddNewCourierActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_search_main:
+                //在此做跳转界面，跳转搜索界面
+                Intent intent1 = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent1);
                 break;
             default:
                 break;
