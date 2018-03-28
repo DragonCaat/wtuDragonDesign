@@ -16,6 +16,7 @@ import com.dragon.wtudragondesign.activity.ChatActivity;
 import com.dragon.wtudragondesign.activity.CourierDetailsActivity;
 import com.dragon.wtudragondesign.bean.CourierEntity;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.utils.EaseUserUtils;
 
 import java.util.List;
 
@@ -32,10 +33,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView friendView;
 
+        ImageView imageHead;
         public ViewHolder(View itemView) {
             super(itemView);
             friendView = itemView.findViewById(R.id.tv_friend);
-
+            imageHead = itemView.findViewById(R.id.iv_user_head);
         }
     }
 
@@ -56,6 +58,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(FriendsAdapter.ViewHolder holder, int position) {
         final String friendName = mFriendsList.get(position);
         holder.friendView.setText(friendName);
+        Glide.with(mContext).load(R.mipmap.photo).transform(new EaseUserUtils.GlideCircleTransform(mContext)).into(holder.imageHead);
 
         holder.friendView.setOnClickListener(new View.OnClickListener() {
             @Override
