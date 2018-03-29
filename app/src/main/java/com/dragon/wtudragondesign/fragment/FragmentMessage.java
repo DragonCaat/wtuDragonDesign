@@ -28,13 +28,13 @@ public class FragmentMessage extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //会话列表控件
-        initView();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_message, container, false);
+        //会话列表控件
+        initView();
         return view;
     }
 
@@ -68,7 +68,6 @@ public class FragmentMessage extends Fragment {
                         }
                     }
                 });
-
         getChildFragmentManager().beginTransaction()
                 .add(R.id.container, easeConversationList).commit();
     }

@@ -1,64 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_bg"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@mipmap/to">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/photo" />
-    </RelativeLayout>
+    android:fitsSystemWindows="true"
+    android:background="@color/deep_gray_bg">
 
     <LinearLayout
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="4dp">
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@mipmap/to">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/photo" />
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/tv_my_friends"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawablePadding="2dp"
-            android:drawableTop="@mipmap/friend"
-            android:gravity="center"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:drawablePadding="12dp"
+            android:drawableStart="@mipmap/friend"
+            android:gravity="left|center"
+            android:paddingBottom="6dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
             android:text="我的好友"
-            android:textSize="12sp" />
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_bg" />
 
         <TextView
             android:id="@+id/tv_add_friend"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/addfriends"
-            android:gravity="center"
+            android:background="@color/white"
+            android:drawablePadding="12dp"
+            android:drawableStart="@mipmap/addfriends"
+            android:gravity="left|center"
+            android:paddingBottom="6dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
             android:text="添加好友"
-            android:textSize="12sp" />
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tv_chat"
-            android:layout_width="0dp"
+            android:id="@+id/tv_my_publish_reward"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawableTop="@mipmap/addfriends"
-            android:gravity="center"
-            android:text="好友聊天"
-            android:textSize="12sp" />
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:drawablePadding="12dp"
+            android:drawableStart="@mipmap/reward"
+            android:gravity="left|center"
+            android:paddingBottom="6dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
+            android:text="我发布的悬赏"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_bg" />
+
+        <TextView
+            android:id="@+id/tv_my_receive_reward"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:drawablePadding="12dp"
+            android:drawableStart="@mipmap/icon_profit"
+            android:gravity="left|center"
+            android:paddingBottom="6dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
+            android:text="我接受的悬赏"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_bg" />
+        <TextView
+            android:id="@+id/tv_about_our"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:drawablePadding="12dp"
+            android:drawableStart="@mipmap/icon_cooperation"
+            android:gravity="left|center"
+            android:paddingBottom="6dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
+            android:text="商务合作"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
     </LinearLayout>
 
-
-</LinearLayout>
+</ScrollView>
