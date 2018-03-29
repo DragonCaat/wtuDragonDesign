@@ -31,23 +31,17 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
 
     private TextView tvAdd;
 
-
-    private TextView tvChat;
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my, container, false);
-
         textView = view.findViewById(R.id.tv_my_friends);
         textView.setOnClickListener(this);
 
         tvAdd = view.findViewById(R.id.tv_add_friend);
         tvAdd.setOnClickListener(this);
-
-        tvChat = view.findViewById(R.id.tv_chat);
-        tvChat.setOnClickListener(this);
         return view;
     }
 
@@ -58,14 +52,9 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getContext(), ActivityFriends.class);
                 startActivity(intent);
                 break;
-
             case R.id.tv_add_friend:
                 Intent intent1 = new Intent(getContext(), AddFriendActivity.class);
                 startActivity(intent1);
-                break;
-
-            case R.id.tv_chat:
-
                 break;
             default:
                 break;

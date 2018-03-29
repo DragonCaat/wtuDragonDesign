@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -152,9 +153,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             if (view.getId() == R.id.ll_bottom_main) {
+                //showFragment(fragmentMain,FragmentMain.class);
                 mIvHome.setImageResource(R.mipmap.home_press);
                 mTvHome.setTextColor(getResources().getColor(R.color.colorPrimary));
                 fragmentTransaction.replace(R.id.main_contain, fragmentMain).commit();
+
                 toolbar.setVisibility(View.VISIBLE);
                 mTvTitle.setText("主页");
                 mCircleMenu.setVisibility(View.VISIBLE);
@@ -164,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (view.getId() == R.id.ll_bottom_message) {
+               // showFragment(fragmentMessage,FragmentMessage.class);
                 mIvMessage.setImageResource(R.mipmap.message_press);
                 mTvMessage.setTextColor(getResources().getColor(R.color.colorPrimary));
                 fragmentTransaction.replace(R.id.main_contain, fragmentMessage).commit();
@@ -176,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (view.getId() == R.id.ll_bottom_my) {
+               // showFragment(fragmentMy,FragmentMy.class);
                 mIvMy.setImageResource(R.mipmap.my_press);
                 mTvMy.setTextColor(getResources().getColor(R.color.colorPrimary));
                 fragmentTransaction.replace(R.id.main_contain, fragmentMy).commit();
@@ -186,4 +191,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     };
+
+    private void showFragment(Fragment fragment, Class<?> cl) {
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        hideFragments(transaction);
+        if (fragment == null) {
+            if (cl == FragmentMain.class) {
+                if (fragmentMain == null) {
+                    fragmentMain = new FragmentMain();
+                    transaction.remove(fragmentMain)
+                            .add(R.id.main_contain, fragmentMain).show(fragmentMain);
+                }
+            } else if (cl == FragmentMessage.class) {
+                if (fragmentMessage == null) {
+                    fragmentMessage = new FragmentMessage();
+                    transaction.remove(fragmentMessage)
+                            .add(R.id.main_contain, fragmentMessage)
+                            .show(fragmentMessage);
+                }
+            } else if (cl == FragmentMy.class) {
+                if (fragmentMy == null) {
+                    fragmentMy = new FragmentMy();
+                    transaction.remove(fragmentMy)
+                            .add(R.id.main_contain, fragmentMy)
+                            .show(fragmentMy);
+                }
+            }
+        } else {
+            if (cl == FragmentMain.class)
+                transaction.show(fragmentMain);
+            if (cl == FragmentMessage.class)
+                transaction.show(fragmentMessage);
+            if (cl == FragmentMy.class)
+                transaction.show(fragmentMy);
+        }
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    /**
+     * 将所有的Fragment都置为隐藏状态。
+     * @param transaction 用于对Fragment执行操作的事务
+     */
+    private void hideFragments(FragmentTransaction transaction) {
+        if (fragmentMain != null) {
+            transaction.hide(fragmentMain);
+        }
+        if (fragmentMessage != null) {
+            transaction.hide(fragmentMessage);
+        }
+        if (fragmentMy != null) {
+            transaction.hide(fragmentMy);
+        }
+    }
 }
