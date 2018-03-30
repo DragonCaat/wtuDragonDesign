@@ -40,6 +40,17 @@
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginEnd="10dp"
+                    android:text="武汉"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
             </android.support.v7.widget.Toolbar>
 
             <RelativeLayout

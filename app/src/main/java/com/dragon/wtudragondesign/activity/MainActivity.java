@@ -24,6 +24,7 @@ import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.fragment.FragmentMain;
 import com.dragon.wtudragondesign.fragment.FragmentMessage;
 import com.dragon.wtudragondesign.fragment.FragmentMy;
+import com.hyphenate.easeui.ui.EaseBaiduMapActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout mRlHead;
 
     private Toolbar toolbar;
+
+    //显示位置的textView
+    private TextView mTvLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

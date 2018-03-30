@@ -113,7 +113,6 @@
             android:layout_margin="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:scaleType="fitXY"
-            android:src="@mipmap/photo"
             app:borderWidth="0dp"
             app:layout_anchor="@id/appBar"
             app:layout_anchorGravity="bottom|end"

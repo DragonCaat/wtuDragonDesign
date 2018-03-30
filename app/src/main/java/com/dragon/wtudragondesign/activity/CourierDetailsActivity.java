@@ -1,5 +1,7 @@
 package com.dragon.wtudragondesign.activity;
 
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -60,6 +62,7 @@ public class CourierDetailsActivity extends AppCompatActivity implements View.On
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
