@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/deep_gray_bg">
+    android:background="@color/gray_bg"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -28,10 +28,9 @@
         <TextView
             android:id="@+id/tv_my_friends"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_gravity="left"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:background="@drawable/button_my_selector"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/friend"
             android:gravity="left|center"
@@ -51,9 +50,9 @@
         <TextView
             android:id="@+id/tv_add_friend"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
-            android:background="@color/white"
+            android:background="@drawable/button_my_selector"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/addfriends"
             android:gravity="left|center"
@@ -67,10 +66,10 @@
         <TextView
             android:id="@+id/tv_my_publish_reward"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:background="@drawable/button_my_selector"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/reward"
             android:gravity="left|center"
@@ -89,9 +88,9 @@
         <TextView
             android:id="@+id/tv_my_receive_reward"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
-            android:background="@color/white"
+            android:background="@drawable/button_my_selector"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/icon_profit"
             android:gravity="left|center"
@@ -101,16 +100,18 @@
             android:text="我接受的悬赏"
             android:textColor="@color/black"
             android:textSize="14sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_bg" />
+
         <TextView
             android:id="@+id/tv_about_our"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
-            android:background="@color/white"
+            android:background="@drawable/button_my_selector"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/icon_cooperation"
             android:gravity="left|center"
