@@ -98,6 +98,8 @@
         <activity android:name=".activity.AddFriendActivity" />
         <!-- 环信发送位置的页面 -->
         <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"/>
+
         <activity android:name=".activity.MyPublishRewardActivity" />
         <activity android:name=".activity.MyReceiveRewardActivity"/>
     </application>
