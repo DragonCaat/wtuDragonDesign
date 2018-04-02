@@ -1,12 +1,19 @@
 package com.dragon.wtudragondesign.activity;
 
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,11 +31,16 @@ import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.fragment.FragmentMain;
 import com.dragon.wtudragondesign.fragment.FragmentMessage;
 import com.dragon.wtudragondesign.fragment.FragmentMy;
-import com.hyphenate.easeui.ui.EaseBaiduMapActivity;
+import com.hyphenate.EMMessageListener;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener,EMMessageListener {
 
     private DrawerLayout mDrawerLayout;
     private CircleImageView mCircleMenu;
@@ -64,6 +76,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //显示位置的textView
     private TextView mTvLocation;
 
+    public final static int NOTIFICATION = 3;// 新消息；
+
+    @SuppressLint("HandlerLeak")
+    public Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+//            EaseUser eUser;
+//            UserEntity user, entity;
+//            IUserEntity userDao = new UserEntityImpl(ActMain.this);
+            switch (msg.what) {
+                case NOTIFICATION:
+                    notification();
+                    break;
+//                case IMCALLBACK:
+//                    eUser = (EaseUser) msg.obj;
+//                    entity = new UserEntity();
+//                    entity.setHeadUrl(eUser.getAvatar());
+//                    entity.setNickname(eUser.getNickname());
+//                    entity.setImUsername(eUser.getUsername());
+//
+//                    user = userDao.select(eUser.getUsername());
+//                    if (user == null) {
+//                        userDao.insert(entity);
+//                    } else {
+//                        userDao.update(entity);
+//                    }
+//
+//                    EMClient.getInstance().groupManager().loadAllGroups();
+//                    EMClient.getInstance().chatManager().loadAllConversations();
+//                    break;
+//                case BROADCASTRECEIVER:
+//                    sendBroadcast(bIntent);
+//                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navView.setNavigationItemSelectedListener(this);
         init();
         initData();
+
+        EMClient.getInstance().chatManager().addMessageListener(this);
     }
 
     public void init() {
@@ -115,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentMain = new FragmentMain();
         fragmentMy = new FragmentMy();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_contain, fragmentMain).commit();
+
+       // showFragment(fragmentMain,FragmentMain.class);
     }
 
     @Override
@@ -171,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (view.getId() == R.id.ll_bottom_message) {
-               // showFragment(fragmentMessage,FragmentMessage.class);
+                //showFragment(fragmentMessage,FragmentMessage.class);
                 mIvMessage.setImageResource(R.mipmap.message_press);
                 mTvMessage.setTextColor(getResources().getColor(R.color.colorPrimary));
                 fragmentTransaction.replace(R.id.main_contain, fragmentMessage).commit();
@@ -184,10 +240,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (view.getId() == R.id.ll_bottom_my) {
-               // showFragment(fragmentMy,FragmentMy.class);
+                //showFragment(fragmentMy,FragmentMy.class);
                 mIvMy.setImageResource(R.mipmap.my_press);
                 mTvMy.setTextColor(getResources().getColor(R.color.colorPrimary));
-                fragmentTransaction.replace(R.id.main_contain, fragmentMy).commit();
+               fragmentTransaction.replace(R.id.main_contain, fragmentMy).commit();
                 toolbar.setVisibility(View.GONE);
             } else {
                 mIvMy.setImageResource(R.mipmap.my_normal);
@@ -247,5 +303,85 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (fragmentMy != null) {
             transaction.hide(fragmentMy);
         }
+    }
+    // 获取未读消息总数
+    public int getUnreadMsgCountTotal() {
+        int unreadMsgCountTotal = 0;
+
+        for (EMConversation conversation : EMClient.getInstance().chatManager()
+                .getAllConversations().values()) {
+            unreadMsgCountTotal += conversation.getUnreadMsgCount();
+        }
+        return unreadMsgCountTotal;
+    }
+
+    @SuppressWarnings("deprecation")
+    private void notification() {
+        int unMsgCount = getUnreadMsgCountTotal();
+        String mess = "您有" + unMsgCount + "条未读的新消息";
+        NotificationManager notificationManager = (NotificationManager) this
+                .getSystemService(android.content.Context.NOTIFICATION_SERVICE);
+        Intent clickIntent = new Intent(MainActivity.this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this, 0,
+                clickIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        Notification notification1 = new NotificationCompat.Builder(this)
+                .setContentTitle("环球磁电")
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentText(mess)
+                .setContentIntent(contentIntent)
+                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .build();
+        notification1.flags = Notification.FLAG_AUTO_CANCEL;
+        notificationManager.notify(1000, notification1);
+    }
+
+    /**
+     * 环信消息监听
+     * */
+    @Override
+    public void onMessageReceived(List<EMMessage> list) {
+       //在此处理扩展消息
+
+
+        handler.sendEmptyMessage(NOTIFICATION);
+
+       // Log.i("*********************************", "onMessageReceived: ");
+    }
+
+    @Override
+    public void onCmdMessageReceived(List<EMMessage> list) {
+        if (FragmentMessage.easeConversationList != null)
+            FragmentMessage.easeConversationList.refresh();
+    }
+
+    @Override
+    public void onMessageRead(List<EMMessage> list) {
+        if (FragmentMessage.easeConversationList != null)
+            FragmentMessage.easeConversationList.refresh();
+    }
+
+    @Override
+    public void onMessageDelivered(List<EMMessage> list) {
+
+    }
+
+    @Override
+    public void onMessageRecalled(List<EMMessage> list) {
+
+    }
+
+    @Override
+    public void onMessageChanged(EMMessage emMessage, Object o) {
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        fragmentMain = null;
+        fragmentMessage = null;
+        fragmentMy = null;
     }
 }

@@ -37,19 +37,19 @@
 
                         <TextView
                             android:id="@+id/tv_search_main"
-                            android:textSize="12sp"
-                            android:gravity="center|left"
-                            android:drawablePadding="10dp"
-                            android:text="搜索昵称或价格悬赏"
-                            android:drawableStart="@mipmap/search"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:paddingStart="20dp"
-                            android:background="@drawable/search_gray_bg"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp" />
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/search_gray_bg"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@mipmap/search"
+                            android:gravity="center|left"
+                            android:paddingStart="20dp"
+                            android:text="搜索昵称或价格悬赏"
+                            android:textSize="12sp" />
 
                         <com.dragon.wtudragondesign.view.CustomerViewPagerComponent
                             android:id="@+id/customerViewPager"
@@ -66,9 +66,11 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/tv_reward_main"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:background="@drawable/ripple_with_color"
                                 android:drawablePadding="2dp"
                                 android:drawableTop="@mipmap/hot"
                                 android:gravity="center"
@@ -121,8 +123,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="8dp"
-                        android:paddingBottom="6dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:paddingBottom="6dp">
 
                         <TextView
                             android:id="@+id/tv_hot_reward"
@@ -157,9 +159,9 @@
                             android:id="@+id/iv_vip_reward"
                             android:layout_width="match_parent"
                             android:layout_height="90dp"
+                            android:layout_marginBottom="6dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="6dp"
                             android:scaleType="fitXY" />
                     </RelativeLayout>
 
@@ -167,8 +169,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="8dp"
-                        android:paddingBottom="6dp"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:paddingBottom="6dp">
 
                         <TextView
                             android:id="@+id/tv_vip_reward"

@@ -47,6 +47,9 @@ public class WelcomeActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
+        //标题是属于View的，所以窗口所有的修饰部分被隐藏后标题依然有效,需要去掉标题
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_welcome);
 
         mTextViewCount = findViewById(R.id.circle_text_count);
@@ -54,7 +57,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getHome();
-                if (timer != null){
+                if (timer != null) {
                     timer.cancel();
                     timer.purge();
                 }
@@ -86,7 +89,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     if (count < 1) {
                         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                         startActivity(intent);
-                        if (timer != null){
+                        if (timer != null) {
                             timer.cancel();
                             timer.purge();
                         }

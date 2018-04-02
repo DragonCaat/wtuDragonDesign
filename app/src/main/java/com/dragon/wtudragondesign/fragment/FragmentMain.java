@@ -2,7 +2,6 @@ package com.dragon.wtudragondesign.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,13 +20,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.activity.AddNewCourierActivity;
+import com.dragon.wtudragondesign.activity.RewardActivity;
 import com.dragon.wtudragondesign.activity.SearchActivity;
 import com.dragon.wtudragondesign.adapter.CourierAdapter;
 import com.dragon.wtudragondesign.adapter.JDViewAdapter;
 import com.dragon.wtudragondesign.bean.AdverNotice;
 import com.dragon.wtudragondesign.bean.CourierEntity;
 import com.dragon.wtudragondesign.utils.CornersTransform;
-import com.dragon.wtudragondesign.utils.CustomLinearLayoutManager;
 import com.dragon.wtudragondesign.view.CustomerViewPagerComponent;
 import com.dragon.wtudragondesign.view.JDAdverView;
 
@@ -45,7 +44,6 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     private CourierAdapter courierAdapter;
     private List<CourierEntity> mCourierList = new ArrayList<>();
 
-    private CourierAdapter courierAdapter1;
     private RecyclerView mRvVipCourier;
 
     //自定义的bannerView
@@ -69,6 +67,9 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
     //搜索框
     private TextView mTvSearchMain;
+
+    //悬赏按钮
+    private TextView mTvReward;
 
     @Nullable
     @Override
@@ -96,6 +97,9 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
         mTvSearchMain = view.findViewById(R.id.tv_search_main);
 
         mRvVipCourier = view.findViewById(R.id.rv_vip_reward);
+
+        mTvReward = view.findViewById(R.id.tv_reward_main);
+        mTvReward.setOnClickListener(this);
     }
 
     public void initData() {
@@ -179,6 +183,12 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
                 //在此做跳转界面，跳转搜索界面
                 Intent intent1 = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent1);
+                break;
+
+            case R.id.tv_reward_main:
+                //在此做跳转界面，跳转悬赏界面
+                Intent intent2 = new Intent(getActivity(), RewardActivity.class);
+                startActivity(intent2);
                 break;
             default:
                 break;

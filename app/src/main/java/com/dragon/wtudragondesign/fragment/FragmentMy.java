@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.activity.ActivityFriends;
 import com.dragon.wtudragondesign.activity.AddFriendActivity;
+import com.dragon.wtudragondesign.activity.LoginActivity;
 import com.dragon.wtudragondesign.activity.MyPublishRewardActivity;
 import com.dragon.wtudragondesign.activity.MyReceiveRewardActivity;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Dragon on 2018/3/24.
@@ -33,6 +36,8 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
     private TextView mTvMyReceive;
 
     private View view;
+
+    private CircleImageView mCvPhoto;
 
     @Nullable
     @Override
@@ -58,6 +63,9 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
 
         mTvMyReceive = view.findViewById(R.id.tv_my_receive_reward);
         mTvMyReceive.setOnClickListener(this);
+
+        mCvPhoto = view.findViewById(R.id.cv_photo);
+        mCvPhoto.setOnClickListener(this);
     }
 
     @Override
@@ -74,6 +82,10 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tv_my_receive_reward:
                 intentToNewPage(MyReceiveRewardActivity.class);
+                break;
+
+            case R.id.cv_photo:
+                intentToNewPage(LoginActivity.class);
                 break;
             default:
                 break;
