@@ -20,9 +20,18 @@ import android.widget.Toast;
 
 
 import com.dragon.wtudragondesign.R;
+import com.dragon.wtudragondesign.bean.ResultEntity;
+import com.dragon.wtudragondesign.retrofit.ApiService;
+import com.dragon.wtudragondesign.retrofit.RetrofitClient;
 import com.dragon.wtudragondesign.template.BaseActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by dragon on 2018/2/7.
@@ -96,7 +105,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 public void run() {
                     super.run();
                     try {
-                        Thread.sleep(3000);//休眠3秒
+                        Thread.sleep(2000);//休眠3秒
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -107,6 +116,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         @Override
                         public void run() {
                             loginToEase();
+                            //login(userName,passWord);
                         }
                     });
                 }
@@ -235,7 +245,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onSuccess() {
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();
-                Log.i("#####################","成功");
                 skipPage(MainActivity.class);
                 finish();
             }
@@ -252,6 +261,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         });
     }
+
+    // 登录服务器
+    private void login(String _loginName, String _loginPassWord) {
+        ApiService api = RetrofitClient.getInstance(this).Api();
+        Map<String, String> params = new HashMap<>();
+        params.put("username", _loginName);
+        params.put("pwd", _loginPassWord);
+        Call<ResultEntity> call = api.login(params);
+        call.enqueue(new retrofit2.Callback<ResultEntity>() {
+            @Override
+            public void onResponse(Call<ResultEntity> call,
+                                   Response<ResultEntity> response) {
+
+                if (response.body() == null) {
+                    return;
+                }
+                ResultEntity result = response.body();
+                int res = result.getCode();
+                if (res == 0) {// 登录成功
+                    Log.i("%%%%%%%%%%%%%%%%%", "onResponse: 登陆成功");
+
+                } else {
+
+                }
+            }
+            @Override
+            public void onFailure(Call<ResultEntity> arg0, Throwable arg1) {
+                Log.i("%%%%%%%%%%%%%%%%%", "onResponse: 登陆失败");
+            }
+        });
+    }
+
 
     @Override
     protected void onDestroy() {

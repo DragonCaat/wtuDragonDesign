@@ -101,7 +101,11 @@
         <activity android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity" />
         <activity android:name=".activity.MyPublishRewardActivity" />
         <activity android:name=".activity.MyReceiveRewardActivity" />
-        <activity android:name=".activity.RewardActivity"></activity>
+        <activity android:name=".activity.RewardActivity" />
+        <!-- 网络监听的广播 -->
+        <receiver android:name=".receiver.NetBroadcastReceiver" />
+
+        <activity android:name=".activity.BusinessCooperationActivity"/>
     </application>
 
 </manifest>

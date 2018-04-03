@@ -71,4 +71,10 @@ public class FragmentMessage extends Fragment {
         getChildFragmentManager().beginTransaction()
                 .add(R.id.container, easeConversationList).commit();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        easeConversationList = null;
+    }
 }

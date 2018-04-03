@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
@@ -31,6 +32,8 @@ import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.fragment.FragmentMain;
 import com.dragon.wtudragondesign.fragment.FragmentMessage;
 import com.dragon.wtudragondesign.fragment.FragmentMy;
+import com.dragon.wtudragondesign.receiver.NetBroadcastReceiver;
+import com.dragon.wtudragondesign.utils.NetUtils;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -40,7 +43,12 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener,EMMessageListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener,EMMessageListener,NetBroadcastReceiver.NetEvent{
+    public static NetBroadcastReceiver.NetEvent event;
+    /**
+     * 网络类型
+     */
+    private int netMobile;
 
     private DrawerLayout mDrawerLayout;
     private CircleImageView mCircleMenu;
@@ -134,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navView.setNavigationItemSelectedListener(this);
         init();
         initData();
+        inspectNet();
 
         EMClient.getInstance().chatManager().addMessageListener(this);
     }
@@ -162,6 +171,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRlHead.setOnClickListener(this);
 
         toolbar = findViewById(R.id.toolbar1);
+
+       // mLlHome.performClick();
     }
 
     public void initData() {
@@ -383,5 +394,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentMain = null;
         fragmentMessage = null;
         fragmentMy = null;
+    }
+    /**
+     * 监听到有网络变化的时候执行
+     * */
+    @Override
+    public void onNetChange(int netMobile) {
+        this.netMobile = netMobile;
+        boolean netConnect = isNetConnect();
+        if (!netConnect){
+            //无网络
+            Toast.makeText(this,"当前设备无网络",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 初始化时判断有没有网络
+     */
+
+    public boolean inspectNet() {
+        this.netMobile = NetUtils.getNetWorkState(this);
+        return isNetConnect();
+    }
+
+    /**
+     * 判断有无网络 。
+     *
+     * @return true 有网, false 没有网络.
+     */
+    public boolean isNetConnect() {
+        if (netMobile == 1) {
+            return true;
+        } else if (netMobile == 0) {
+            return true;
+        } else if (netMobile == -1) {
+            return false;
+
+        }
+        return false;
+    }
+
+    /**
+     * 展示snackBar
+     */
+    @SuppressLint("ResourceAsColor")
+    private void showSnackBar(View view) {
+        final Snackbar snackbar = Snackbar.make(view, "当前设备无网络，请确认网络状态良好", Snackbar.LENGTH_LONG);
+        snackbar.setAction("知道了", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //在此做跳转界面，编写发布界面
+                snackbar.dismiss();
+            }
+        }).show();
     }
 }
