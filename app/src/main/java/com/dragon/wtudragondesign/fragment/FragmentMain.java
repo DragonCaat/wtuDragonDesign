@@ -195,22 +195,6 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
-    /**
-     * 展示snackBar,让用户确认是否发布消息
-     */
-    @SuppressLint("ResourceAsColor")
-    private void showSnackBar(View view) {
-        Snackbar snackbar = Snackbar.make(view, "确认要发布悬赏带快递？", Snackbar.LENGTH_LONG);
-        snackbar.setAction("确定", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //在此做跳转界面，编写发布界面
-                Intent intent = new Intent(getActivity(), AddNewCourierActivity.class);
-                startActivity(intent);
-            }
-        }).show();
-    }
-
     //初始化滚动条
     private void initJdNotice() {
         datas.add(new AdverNotice("张承发布了一条悬赏，快去看看吧!!", "最新"));
@@ -232,7 +216,8 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onDestroy() {
         super.onDestroy();
-        customerViewPagerComponent.handler
-                .removeMessages(customerViewPagerComponent.MSG_CODE);
+        if (customerViewPagerComponent != null)
+            customerViewPagerComponent.handler
+                    .removeMessages(customerViewPagerComponent.MSG_CODE);
     }
 }

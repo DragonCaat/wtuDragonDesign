@@ -65,12 +65,18 @@
                     android:background="@color/gray_bg"
                     android:paddingBottom="50dp" />
 
+                <TextView
+                    android:layout_above="@+id/ll_bottom"
+                    android:background="@color/gray_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
                 <LinearLayout
                     android:id="@+id/ll_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#ffffff"
+                    android:background="@color/white"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingBottom="2dp"

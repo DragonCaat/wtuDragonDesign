@@ -123,6 +123,39 @@
             android:textColor="@color/black"
             android:textSize="14sp" />
 
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_setting"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_my_selector"
+            android:drawablePadding="12dp"
+            android:drawableStart="@mipmap/setting"
+            android:gravity="left|center"
+            android:paddingBottom="6dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
+            android:text="设置"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/btn_login_out"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_my_selector"
+            android:drawablePadding="12dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="退出登录"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
     </LinearLayout>
 
 </ScrollView>
