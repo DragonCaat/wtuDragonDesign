@@ -88,7 +88,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
         customerViewPagerComponent = view
                 .findViewById(R.id.customerViewPager);
-        customerViewPagerComponent.setImages(imgs);
+        customerViewPagerComponent.setImages(imgs,getActivity());
 
         tbView = view.findViewById(R.id.notice);
 
@@ -126,7 +126,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
         mTvSearchMain.setOnClickListener(this);
 
         Glide.with(this).load(R.mipmap.vip).transform(new CornersTransform(getContext(), 30)).into(mIvVipReward);
-
+        //初始化滚动条
         initJdNotice();
     }
 
@@ -198,8 +198,8 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     //初始化滚动条
     private void initJdNotice() {
         datas.add(new AdverNotice("张承发布了一条悬赏，快去看看吧!!", "最新"));
-        datas.add(new AdverNotice("胡钊昨晚打游戏，打到凌晨2点半。", "最火爆"));
-        datas.add(new AdverNotice("高立存天天晚上吃夜宵，还不归宿", "HOT"));
+        datas.add(new AdverNotice("胡钊发布了一条高价悬赏...。", "最火爆"));
+        datas.add(new AdverNotice("高立存人品爆发，占据榜首", "HOT"));
         datas.add(new AdverNotice("天呐，汪俊获得了天价悬赏，秘密就在...", "new"));
 
         adapter = new JDViewAdapter(datas);

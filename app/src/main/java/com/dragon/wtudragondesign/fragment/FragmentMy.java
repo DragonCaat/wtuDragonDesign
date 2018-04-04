@@ -28,6 +28,8 @@ import com.dragon.wtudragondesign.activity.BusinessCooperationActivity;
 import com.dragon.wtudragondesign.activity.LoginActivity;
 import com.dragon.wtudragondesign.activity.MyPublishRewardActivity;
 import com.dragon.wtudragondesign.activity.MyReceiveRewardActivity;
+import com.dragon.wtudragondesign.bean.Const;
+import com.dragon.wtudragondesign.utils.PreferencesUtils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
@@ -42,8 +44,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentMy extends Fragment implements View.OnClickListener {
 
-    private final static int LOGIN_PROGRESS = 1;//正在退出登录
-    private final static int LOGIN_SUCCESS = 0;//退出登录成功
+    private final static int LOGIN_OUT_PROGRESS = 1;//正在退出登录
+    private final static int LOGIN_OUT_SUCCESS = 0;//退出登录成功
 
     private TextView mTvMyFriends;
 
@@ -70,11 +72,10 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case LOGIN_SUCCESS:
-                    Toast.makeText(getContext(), "退出成功", Toast.LENGTH_SHORT).show();
-                    hideProgressDialog();
+                case LOGIN_OUT_SUCCESS:
+                    cleanUserData();
                     break;
-                case LOGIN_PROGRESS:
+                case LOGIN_OUT_PROGRESS:
                     showProgressDialog();
                 default:
                     break;
@@ -187,25 +188,26 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
 
             @Override
             public void onSuccess() {
-                // TODO Auto-generated method stub
-                mHandler.sendEmptyMessage(LOGIN_SUCCESS);
-                Log.i("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", "onSuccess: ");
+                mHandler.sendEmptyMessage(LOGIN_OUT_SUCCESS);
             }
 
             @Override
             public void onProgress(int progress, String status) {
-                // TODO Auto-generated method stub
-                mHandler.sendEmptyMessage(LOGIN_PROGRESS);
-
-                Log.i("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", "onProgress: ");
+                mHandler.sendEmptyMessage(LOGIN_OUT_PROGRESS);
             }
 
             @Override
             public void onError(int code, String message) {
-                // TODO Auto-generated method stub
 
             }
         });
+    }
+    //退出登陆清除用户数据
+    private void cleanUserData(){
+        PreferencesUtils.putString(getActivity(), Const.USER_NAME,"");
+        PreferencesUtils.putString(getActivity(), Const.PASS_WORD,"");
+        Toast.makeText(getContext(), "退出成功", Toast.LENGTH_SHORT).show();
+        hideProgressDialog();
     }
 
     //展示加载对话框

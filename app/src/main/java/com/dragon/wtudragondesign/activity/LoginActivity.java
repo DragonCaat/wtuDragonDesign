@@ -5,8 +5,11 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,10 +23,12 @@ import android.widget.Toast;
 
 
 import com.dragon.wtudragondesign.R;
+import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.bean.ResultEntity;
 import com.dragon.wtudragondesign.retrofit.ApiService;
 import com.dragon.wtudragondesign.retrofit.RetrofitClient;
 import com.dragon.wtudragondesign.template.BaseActivity;
+import com.dragon.wtudragondesign.utils.PreferencesUtils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
@@ -40,6 +45,9 @@ import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
+    private final static int LOGIN_SUCESS = 0;
+    private final static int LOGIN_FAIL = 1;
+
     private TextView mBtnLogin, mBtnRegister, mBtnFindPass;
 
     private View progress;
@@ -54,6 +62,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private String userName = "";
     private String passWord = "";
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+                case LOGIN_SUCESS:
+                    saveUserData();
+                    break;
+                case LOGIN_FAIL:
+                    recovery();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,14 +267,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         animator2.start();
     }
 
-    private void loginToEase(){
-        EMClient.getInstance().login(userName, passWord,new EMCallBack() {//回调
+    private void loginToEase() {
+        EMClient.getInstance().login(userName, passWord, new EMCallBack() {//回调
             @Override
             public void onSuccess() {
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();
                 skipPage(MainActivity.class);
-                finish();
+                mHandler.sendEmptyMessage(LOGIN_SUCESS);
+
             }
 
             @Override
@@ -256,8 +285,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onError(int code, String message) {
-                Log.d("main", "登录聊天服务器失败！");
-                recovery();
+
+                mHandler.sendEmptyMessage(LOGIN_FAIL);
             }
         });
     }
@@ -286,11 +315,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 }
             }
+
             @Override
             public void onFailure(Call<ResultEntity> arg0, Throwable arg1) {
                 Log.i("%%%%%%%%%%%%%%%%%", "onResponse: 登陆失败");
             }
         });
+    }
+
+    //登陆成功后
+    private void saveUserData() {
+        PreferencesUtils.putString(getAct(), Const.USER_NAME, userName);
+        PreferencesUtils.putString(getAct(), Const.PASS_WORD, passWord);
+
+        finish();
     }
 
 

@@ -105,7 +105,14 @@
         <!-- 网络监听的广播 -->
         <receiver android:name=".receiver.NetBroadcastReceiver" />
 
-        <activity android:name=".activity.BusinessCooperationActivity"/>
+        <activity android:name=".activity.BusinessCooperationActivity" />
+
+        <service
+            android:name=".service.NewMessageService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".activity.WebViewActivity"></activity>
     </application>
 
 </manifest>

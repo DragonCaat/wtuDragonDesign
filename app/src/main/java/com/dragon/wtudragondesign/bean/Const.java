@@ -18,4 +18,6 @@ public class Const {
 
     public static String WEL_PIC = "http://guolin.tech/api/bing_pic";
 
+    public static String USER_NAME = "username";
+    public static String PASS_WORD = "password";
 }
