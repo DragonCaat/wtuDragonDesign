@@ -33,6 +33,7 @@ import com.dragon.wtudragondesign.fragment.FragmentMain;
 import com.dragon.wtudragondesign.fragment.FragmentMessage;
 import com.dragon.wtudragondesign.fragment.FragmentMy;
 import com.dragon.wtudragondesign.receiver.NetBroadcastReceiver;
+import com.dragon.wtudragondesign.service.NewMessageService;
 import com.dragon.wtudragondesign.utils.NetUtils;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -91,33 +92,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-//            EaseUser eUser;
-//            UserEntity user, entity;
-//            IUserEntity userDao = new UserEntityImpl(ActMain.this);
             switch (msg.what) {
                 case NOTIFICATION:
-                    notification();
+
                     break;
-//                case IMCALLBACK:
-//                    eUser = (EaseUser) msg.obj;
-//                    entity = new UserEntity();
-//                    entity.setHeadUrl(eUser.getAvatar());
-//                    entity.setNickname(eUser.getNickname());
-//                    entity.setImUsername(eUser.getUsername());
-//
-//                    user = userDao.select(eUser.getUsername());
-//                    if (user == null) {
-//                        userDao.insert(entity);
-//                    } else {
-//                        userDao.update(entity);
-//                    }
-//
-//                    EMClient.getInstance().groupManager().loadAllGroups();
-//                    EMClient.getInstance().chatManager().loadAllConversations();
-//                    break;
-//                case BROADCASTRECEIVER:
-//                    sendBroadcast(bIntent);
-//                    break;
                 default:
                     break;
             }
@@ -143,6 +121,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
         initData();
         inspectNet();
+
+        //开启服务
+        Intent intent = new Intent(this,NewMessageService.class);
+        startService(intent);
 
         EMClient.getInstance().chatManager().addMessageListener(this);
     }
@@ -315,49 +297,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             transaction.hide(fragmentMy);
         }
     }
-    // 获取未读消息总数
-    public int getUnreadMsgCountTotal() {
-        int unreadMsgCountTotal = 0;
-
-        for (EMConversation conversation : EMClient.getInstance().chatManager()
-                .getAllConversations().values()) {
-            unreadMsgCountTotal += conversation.getUnreadMsgCount();
-        }
-        return unreadMsgCountTotal;
-    }
-
-    @SuppressWarnings("deprecation")
-    private void notification() {
-        int unMsgCount = getUnreadMsgCountTotal();
-        String mess = "您有" + unMsgCount + "条未读的新消息";
-        NotificationManager notificationManager = (NotificationManager) this
-                .getSystemService(android.content.Context.NOTIFICATION_SERVICE);
-        Intent clickIntent = new Intent(MainActivity.this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this, 0,
-                clickIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        Notification notification1 = new NotificationCompat.Builder(this)
-                .setContentTitle("环球磁电")
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentText(mess)
-                .setContentIntent(contentIntent)
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .setAutoCancel(true)
-                .build();
-        notification1.flags = Notification.FLAG_AUTO_CANCEL;
-        notificationManager.notify(1000, notification1);
-    }
-
     /**
      * 环信消息监听
      * */
     @Override
     public void onMessageReceived(List<EMMessage> list) {
        //在此处理扩展消息
-
-
-        handler.sendEmptyMessage(NOTIFICATION);
-
-       // Log.i("*********************************", "onMessageReceived: ");
     }
 
     @Override

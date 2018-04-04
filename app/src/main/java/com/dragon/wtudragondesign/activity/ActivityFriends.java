@@ -6,13 +6,18 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.adapter.FriendsAdapter;
+import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.template.BaseActivity;
+import com.dragon.wtudragondesign.utils.PreferencesUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
@@ -25,8 +30,8 @@ import static com.dragon.wtudragondesign.fragment.FragmentMessage.easeConversati
 
 /**
  * 我的好友界面
- * */
-public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+ */
+public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRvFriends;
 
@@ -35,6 +40,8 @@ public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.
     private FriendsAdapter adapter;
 
     private ProgressDialog proDialog;
+
+    private LinearLayout mLlNotLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,9 @@ public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.
         mRvFriends.setLayoutManager(manager);
 
         swipeRefresh = fv(R.id.refresh_friend);
+
+        mLlNotLogin = fv(R.id.ll_not_login);
+
     }
 
     @Override
@@ -64,10 +74,14 @@ public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.
 //        }
 //        getSupportFragmentManager().beginTransaction()
 //                .add(R.id.contact_cont, easeContactListFragment).commit();
-
-        showProgressDialog();
-        getFriendsList();
-
+        String userName = PreferencesUtils.getString(getAct(), Const.USER_NAME);
+        if (TextUtils.isEmpty(userName)) {
+            mLlNotLogin.setVisibility(View.VISIBLE);
+        } else {
+            mLlNotLogin.setVisibility(View.GONE);
+            showProgressDialog();
+            getFriendsList();
+        }
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(this);
     }
@@ -82,10 +96,10 @@ public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.
                         @Override
                         public void run() {
                             hideProgressDialog();
-                            if (usernames.size()>0){
-                                FriendsAdapter friendsAdapter = new FriendsAdapter(usernames,getAct());
+                            if (usernames.size() > 0) {
+                                FriendsAdapter friendsAdapter = new FriendsAdapter(usernames, getAct());
                                 mRvFriends.setAdapter(friendsAdapter);
-                            }else {
+                            } else {
                                 showToast("你还没有还有，或者请先登陆");
                             }
                         }
@@ -130,12 +144,12 @@ public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.
     }
 
     //展示加载对话框
-    private void showProgressDialog(){
-      proDialog  = android.app.ProgressDialog.show(this, "", "正在加载好友");
+    private void showProgressDialog() {
+        proDialog = android.app.ProgressDialog.show(this, "", "正在加载好友");
     }
 
-    private void hideProgressDialog(){
-        if (proDialog!=null)
+    private void hideProgressDialog() {
+        if (proDialog != null)
             proDialog.dismiss();
     }
 }

@@ -2,6 +2,7 @@ package com.dragon.wtudragondesign.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
+import com.dragon.wtudragondesign.activity.WebViewActivity;
 import com.dragon.wtudragondesign.utils.CornersTransform;
 
 import java.util.ArrayList;
@@ -38,8 +40,11 @@ public class CustomerViewPagerComponent extends RelativeLayout implements
 	private boolean autoPlayFlag;
 	private int currentNumber;
 
-	public void setImages(int[] images) {
+	private Context mContext;
+	public void setImages(int[] images, final Context mContext) {
 		this.images = images;
+		this.mContext = mContext;
+
 		if (images != null) {
 			imageViews = new ImageView[images.length];
 			for (int i = 0; i < images.length; i++) {
@@ -50,7 +55,15 @@ public class CustomerViewPagerComponent extends RelativeLayout implements
 						.transform(new CornersTransform(getContext(),50))
 						.into(imageViews[i]);
 				imageViews[i].setScaleType(ImageView.ScaleType.FIT_XY);
-				//imageViews[i].setBackgroundResource(R.drawable.bg_courier_pics);
+				imageViews[i].setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(mContext, WebViewActivity.class);
+						intent.putExtra("url","https://github.com/DragonCaat/wtuDragonDesign.git");
+						intent.putExtra("name","毕业设计");
+						mContext.startActivity(intent);
+					}
+				});
 			}
 			// 设置适配器
 			viewPager.setAdapter(new MyAdapter());
