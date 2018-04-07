@@ -1,11 +1,9 @@
 package com.dragon.wtudragondesign.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.activity.AddNewCourierActivity;
+import com.dragon.wtudragondesign.activity.ReputationActivity;
 import com.dragon.wtudragondesign.activity.RewardActivity;
 import com.dragon.wtudragondesign.activity.SearchActivity;
 import com.dragon.wtudragondesign.adapter.CourierAdapter;
@@ -45,7 +44,6 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<CourierEntity> mCourierList = new ArrayList<>();
 
     private RecyclerView mRvVipCourier;
-
     //自定义的bannerView
     private CustomerViewPagerComponent customerViewPagerComponent;
     // banner图片资源
@@ -70,6 +68,9 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
     //悬赏按钮
     private TextView mTvReward;
+
+    //信誉按钮
+    private TextView mTvReputation;
 
     @Nullable
     @Override
@@ -100,6 +101,9 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
         mTvReward = view.findViewById(R.id.tv_reward_main);
         mTvReward.setOnClickListener(this);
+
+        mTvReputation = view.findViewById(R.id.tv_reputation_main);
+        mTvReputation.setOnClickListener(this);
     }
 
     public void initData() {
@@ -190,6 +194,12 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
                 Intent intent2 = new Intent(getActivity(), RewardActivity.class);
                 startActivity(intent2);
                 break;
+            case R.id.tv_reputation_main:
+                //在此做跳转界面，跳转悬赏界面
+                Intent intent3 = new Intent(getActivity(), ReputationActivity.class);
+                startActivity(intent3);
+                break;
+
             default:
                 break;
         }

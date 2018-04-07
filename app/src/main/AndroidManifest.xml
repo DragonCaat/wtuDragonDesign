@@ -107,12 +107,14 @@
 
         <activity android:name=".activity.BusinessCooperationActivity" />
 
+        <!-- 监听新消息的服务 -->
         <service
             android:name=".service.NewMessageService"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activity.WebViewActivity"></activity>
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.ReputationActivity"/>
     </application>
 
 </manifest>

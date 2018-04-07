@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_courier"
             android:layout_width="match_parent"
@@ -78,13 +79,15 @@
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/tv_reputation_main"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:drawablePadding="2dp"
-                                android:drawableTop="@mipmap/hot"
+                                android:drawablePadding="1dp"
+                                android:background="@drawable/ripple_with_color"
+                                android:drawableTop="@mipmap/reputation"
                                 android:gravity="center"
-                                android:text="悬赏"
+                                android:text="信誉"
                                 android:textSize="12sp" />
 
                             <TextView
