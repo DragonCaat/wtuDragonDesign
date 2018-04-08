@@ -114,7 +114,14 @@
             android:exported="true" />
 
         <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.ReputationActivity"/>
+        <activity android:name=".activity.ReputationActivity" />
+        <activity
+            android:name=".activity.UserDataActivity"
+            android:theme="@style/CourierDetailsTheme" />
+        <activity
+            android:name=".activity.VipActivity"
+            android:label="@string/title_activity_vip"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

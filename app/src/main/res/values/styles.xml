@@ -14,7 +14,30 @@
 
     <declare-styleable name="JDAdverView">
         <attr name="gap" format="integer" />
-        <attr name="animDuration" format="integer"/>
+        <attr name="animDuration" format="integer" />
+    </declare-styleable>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <declare-styleable name="CircleWaveView">
+        <attr name="waveColor" format="color"></attr>
+        <attr name="waveHight" format="dimension"></attr>
+        <attr name="waveBackColor" format="color"></attr>
+        <attr name="innerRadius" format="dimension"></attr>
+        <attr name="outCircleWidth" format="dimension"></attr>
+        <attr name="outCircleColor" format="color"></attr>
+        <attr name="textSize" format="dimension"></attr>
+        <attr name="textColor" format="color"></attr>
+        <attr name="waveWidth" format="dimension"></attr>
+
+
+        <attr name = "waveColor2" format="color"></attr>
+        <attr name="waveHight2" format="dimension"></attr>
+        <attr name="waveBackColor2" format="color"></attr>
+        <attr name="waveWidth2" format="dimension"></attr>
     </declare-styleable>
 
 </resources>

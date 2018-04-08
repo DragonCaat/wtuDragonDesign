@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
@@ -33,6 +34,7 @@ import okhttp3.Response;
  */
 
 public class WelcomeActivity extends AppCompatActivity {
+    private final static int PIC_COMPILE = 1;
 
     private TextView mTextViewCount;
 
@@ -40,6 +42,24 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private static int count = 5;
     private Timer timer;// = new Timer();
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            Glide.with(WelcomeActivity.this)
+                    .load(finalPicUrl)
+                    //加载时显示的图片
+                    .placeholder(R.mipmap.splash)
+                    .error(R.mipmap.ic_launcher)
+                    .centerCrop()
+                    .into(imageView);
+        }
+
+    };
+    private String finalPicUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,29 +147,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                String picUrl = null;
                 try {
-                    picUrl = response.body().string();
+                    if (response!=null)
+                    finalPicUrl = response.body().string();
+                    if (!TextUtils.isEmpty(finalPicUrl))
+                        mHandler.sendEmptyMessage(PIC_COMPILE);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                final String finalPicUrl = picUrl;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!TextUtils.isEmpty(finalPicUrl)) {
-
-                            Glide.with(WelcomeActivity.this)
-                                    .load(finalPicUrl)
-                                    //加载时显示的图片
-                                    .placeholder(R.mipmap.splash)
-                                    .error(R.mipmap.ic_launcher)
-                                    .centerCrop()
-                                    .into(imageView);
-                        }
-                    }
-                });
             }
         }).start();
 

@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.nav_head:
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, UserDataActivity.class);
                 startActivity(intent);
                 break;
             default:
