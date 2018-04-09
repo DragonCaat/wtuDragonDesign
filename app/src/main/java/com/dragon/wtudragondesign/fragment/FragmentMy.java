@@ -28,6 +28,7 @@ import com.dragon.wtudragondesign.activity.BusinessCooperationActivity;
 import com.dragon.wtudragondesign.activity.LoginActivity;
 import com.dragon.wtudragondesign.activity.MyPublishRewardActivity;
 import com.dragon.wtudragondesign.activity.MyReceiveRewardActivity;
+import com.dragon.wtudragondesign.activity.VipActivity;
 import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.utils.PreferencesUtils;
 import com.hyphenate.EMCallBack;
@@ -56,6 +57,8 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
     private TextView mTvMyReceive;
 
     private TextView mTvBusinessCooperation;
+
+    private TextView mTvVipRecharge;
 
     private View view;
 
@@ -117,6 +120,9 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
 
         mTvBusinessCooperation = view.findViewById(R.id.tv_about_our);
         mTvBusinessCooperation.setOnClickListener(this);
+
+        mTvVipRecharge = view.findViewById(R.id.tv_recharge_vip);
+        mTvVipRecharge.setOnClickListener(this);
     }
 
     @Override
@@ -143,6 +149,10 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tv_about_our:
                 intentToNewPage(BusinessCooperationActivity.class);
+                break;
+
+            case R.id.tv_recharge_vip:
+                intentToNewPage(VipActivity.class);
                 break;
 
             default:

@@ -118,10 +118,7 @@
         <activity
             android:name=".activity.UserDataActivity"
             android:theme="@style/CourierDetailsTheme" />
-        <activity
-            android:name=".activity.VipActivity"
-            android:label="@string/title_activity_vip"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".activity.VipActivity" />
     </application>
 
 </manifest>

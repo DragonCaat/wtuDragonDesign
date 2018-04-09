@@ -17,33 +17,6 @@
         android:textSize="14sp" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_mifi_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:hint="请输入设备ID"
-            android:inputType="number"
-            android:paddingBottom="12dp"
-            android:paddingLeft="15dp"
-            android:paddingTop="12dp" />
-
-        <ImageView
-            android:id="@+id/iv_delete"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="24dp"
-            android:background="@mipmap/delete"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/rl_show_mifi"
         android:layout_width="match_parent"
         android:layout_height="220dp"
@@ -79,12 +52,12 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tv_des_mifi"
+            android:id="@+id/tv_des_vip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:text="您的MIFI流量将于2018-08-08到期"
+            android:text="您的会员将于2018-08-08到期"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp" />
     </RelativeLayout>
