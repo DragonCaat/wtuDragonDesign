@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -146,6 +147,8 @@ public class ActivityFriends extends BaseActivity implements SwipeRefreshLayout.
     //展示加载对话框
     private void showProgressDialog() {
         proDialog = android.app.ProgressDialog.show(this, "", "正在加载好友");
+
+        proDialog.setCanceledOnTouchOutside(true);
     }
 
     private void hideProgressDialog() {

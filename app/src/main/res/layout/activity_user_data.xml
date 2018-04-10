@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="45dp"
+            android:paddingBottom="52dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -96,25 +97,151 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/user_vip"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_my_selector"
+                    android:drawableEnd="@mipmap/into"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@mipmap/have_vip"
+                    android:gravity="center|start"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="12dp"
+                    android:text="天王会员"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/gray_bg" />
 
                 <TextView
-                    android:id="@+id/user_vip"
+                    android:id="@+id/user_friends"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginStart="12dp"
                     android:background="@drawable/button_my_selector"
+                    android:drawableEnd="@mipmap/into"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@mipmap/have_vip"
+                    android:drawableStart="@mipmap/friend"
                     android:gravity="center|start"
-                    android:text="天王会员"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="12dp"
+                    android:text="拥有的好友"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-            </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/line_break" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="主题照片"
+                        android:textColor="@color/black" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="202dp"
+                            android:layout_weight="2"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/first" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="200dp"
+                            android:background="@color/white" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/second" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/white" />
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/third" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/third" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/first" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/second" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
@@ -129,6 +256,20 @@
             app:layout_anchorGravity="bottom|center" />
 
     </android.support.design.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_selector"
+            android:text="编辑资料"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 
 </RelativeLayout>

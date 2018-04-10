@@ -19,6 +19,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -44,7 +45,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener,EMMessageListener,NetBroadcastReceiver.NetEvent{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, EMMessageListener, NetBroadcastReceiver.NetEvent {
     public static NetBroadcastReceiver.NetEvent event;
     /**
      * 网络类型
@@ -87,6 +88,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public final static int NOTIFICATION = 3;// 新消息；
 
+    public final static int EXIT_APPLICATION = 0;// 新消息；
+
+    private static Boolean isExit = false;
+
     @SuppressLint("HandlerLeak")
     public Handler handler = new Handler() {
         @Override
@@ -95,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (msg.what) {
                 case NOTIFICATION:
 
+                    break;
+                case EXIT_APPLICATION:
+                    //finish();
                     break;
                 default:
                     break;
@@ -123,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inspectNet();
 
         //开启服务
-        Intent intent = new Intent(this,NewMessageService.class);
+        Intent intent = new Intent(this, NewMessageService.class);
         startService(intent);
 
         EMClient.getInstance().chatManager().addMessageListener(this);
@@ -154,16 +162,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         toolbar = findViewById(R.id.toolbar1);
 
-       // mLlHome.performClick();
+        mLlHome.performClick();
     }
 
     public void initData() {
-        fragmentMessage = new FragmentMessage();
-        fragmentMain = new FragmentMain();
-        fragmentMy = new FragmentMy();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_contain, fragmentMain).commit();
-
-       // showFragment(fragmentMain,FragmentMain.class);
+//        fragmentMessage = new FragmentMessage();
+//        fragmentMain = new FragmentMain();
+//        fragmentMy = new FragmentMy();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.main_contain, fragmentMain).commit();
     }
 
     @Override
@@ -206,10 +212,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             if (view.getId() == R.id.ll_bottom_main) {
-                //showFragment(fragmentMain,FragmentMain.class);
+                showFragment(fragmentMain, FragmentMain.class);
                 mIvHome.setImageResource(R.mipmap.home_press);
                 mTvHome.setTextColor(getResources().getColor(R.color.colorPrimary));
-                fragmentTransaction.replace(R.id.main_contain, fragmentMain).commit();
+                //fragmentTransaction.replace(R.id.main_contain, fragmentMain).commit();
 
                 toolbar.setVisibility(View.VISIBLE);
                 mTvTitle.setText("主页");
@@ -220,10 +226,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (view.getId() == R.id.ll_bottom_message) {
-                //showFragment(fragmentMessage,FragmentMessage.class);
+                showFragment(fragmentMessage, FragmentMessage.class);
                 mIvMessage.setImageResource(R.mipmap.message_press);
                 mTvMessage.setTextColor(getResources().getColor(R.color.colorPrimary));
-                fragmentTransaction.replace(R.id.main_contain, fragmentMessage).commit();
+                //fragmentTransaction.replace(R.id.main_contain, fragmentMessage).commit();
                 toolbar.setVisibility(View.VISIBLE);
                 mTvTitle.setText("消息");
                 mCircleMenu.setVisibility(View.GONE);
@@ -233,10 +239,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             if (view.getId() == R.id.ll_bottom_my) {
-                //showFragment(fragmentMy,FragmentMy.class);
+                showFragment(fragmentMy, FragmentMy.class);
                 mIvMy.setImageResource(R.mipmap.my_press);
                 mTvMy.setTextColor(getResources().getColor(R.color.colorPrimary));
-               fragmentTransaction.replace(R.id.main_contain, fragmentMy).commit();
+                // fragmentTransaction.replace(R.id.main_contain, fragmentMy).commit();
                 toolbar.setVisibility(View.GONE);
             } else {
                 mIvMy.setImageResource(R.mipmap.my_normal);
@@ -282,8 +288,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     /**
      * 将所有的Fragment都置为隐藏状态。
+     *
      * @param transaction 用于对Fragment执行操作的事务
      */
     private void hideFragments(FragmentTransaction transaction) {
@@ -297,12 +305,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             transaction.hide(fragmentMy);
         }
     }
+
     /**
      * 环信消息监听
-     * */
+     */
     @Override
     public void onMessageReceived(List<EMMessage> list) {
-       //在此处理扩展消息
+        //在此处理扩展消息
     }
 
     @Override
@@ -339,17 +348,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentMain = null;
         fragmentMessage = null;
         fragmentMy = null;
+
+        isExit = false;
     }
+
     /**
      * 监听到有网络变化的时候执行
-     * */
+     */
     @Override
     public void onNetChange(int netMobile) {
         this.netMobile = netMobile;
         boolean netConnect = isNetConnect();
-        if (!netConnect){
+        if (!netConnect) {
             //无网络
-            Toast.makeText(this,"当前设备无网络",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "当前设备无网络", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -392,5 +404,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 snackbar.dismiss();
             }
         }).show();
+    }
+
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {
+//        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+//            moveTaskToBack(false);
+//            return true;
+//        }
+//        return super.dispatchKeyEvent(event);
+//    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 连续点击两次返回退出
+     */
+    protected void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            handler.sendEmptyMessageDelayed(EXIT_APPLICATION, 2000);
+        } else {
+            finish();
+        }
     }
 }

@@ -6,29 +6,30 @@
 
     <RelativeLayout
         android:id="@+id/rl_vip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingTop="10dp"
-        android:paddingStart="20dp"
+        android:background="@drawable/vip_press"
+        android:gravity="center"
         android:paddingBottom="10dp"
         android:paddingEnd="20dp"
-        android:gravity="center"
-        android:background="@drawable/vip_press"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingStart="20dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/vip_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="一个月"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <TextView
-            android:text="¥ 6.0"
             android:id="@+id/vip_price"
-            android:layout_below="@+id/vip_month"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vip_month"
+            android:text="¥ 6.0"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 

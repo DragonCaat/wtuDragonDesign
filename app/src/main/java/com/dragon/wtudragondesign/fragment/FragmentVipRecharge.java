@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.adapter.VipRechargeAdapter;
@@ -30,6 +31,9 @@ public class FragmentVipRecharge extends Fragment implements AdapterView.OnItemC
 	private List<VipEntity> list;
 
 	private VipRechargeAdapter adapter;
+
+	private ImageView mImageViewWXPay;
+	private ImageView mImageViewALiPay;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +58,12 @@ public class FragmentVipRecharge extends Fragment implements AdapterView.OnItemC
 
 		mGvVip.setOnItemClickListener(this);
 
+		mImageViewWXPay = view.findViewById(R.id.iv_wx_pay);
+		mImageViewWXPay.setOnClickListener(listener);
+
+		mImageViewALiPay = view.findViewById(R.id.iv_ali_pay);
+		mImageViewALiPay.setOnClickListener(listener);
+
 	}
 
 	private void initData(){
@@ -71,14 +81,51 @@ public class FragmentVipRecharge extends Fragment implements AdapterView.OnItemC
 		vipEntity2.setVipMonth("6个月");
 		vipEntity2.setVipPrice("¥ 25.0");
 
+		VipEntity vipEntity3 = new VipEntity();
+		vipEntity3.setVipMonth("9个月");
+		vipEntity3.setVipPrice("¥ 40.0");
+
+		VipEntity vipEntity4 = new VipEntity();
+		vipEntity4.setVipMonth("12个月");
+		vipEntity4.setVipPrice("¥ 65.0");
+
 		list.add(vipEntity);
 		list.add(vipEntity1);
 		list.add(vipEntity2);
+		list.add(vipEntity3);
+		list.add(vipEntity4);
 	}
+
+	View.OnClickListener listener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			if (v.getId() == R.id.iv_wx_pay) {
+				setButtonOn(mImageViewWXPay);
+				//PAYFLAG = Const.WX_PAY;
+			} else {
+				setButtonOff(mImageViewWXPay);
+			}
+			if (v.getId() == R.id.iv_ali_pay) {
+				setButtonOn(mImageViewALiPay);
+				//PAYFLAG = Const.ALI_PAY;
+			} else {
+				setButtonOff(mImageViewALiPay);
+			}
+		}
+	};
+
+	private void setButtonOff(ImageView imageView) {
+		imageView.setImageResource(R.mipmap.button_choice_pay_off);
+	}
+
+	private void setButtonOn(ImageView imageView) {
+		imageView.setImageResource(R.mipmap.button_choice_pay_on);
+	}
+
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
 		adapter.setSeclection(i);
 		adapter.notifyDataSetChanged();
 	}

@@ -1,7 +1,8 @@
 package com.dragon.wtudragondesign.bean;
 
 /**
- * Created by EDZ on 2018/3/23.
+ * Created by Dragon on 2018/3/23.
+ * 滚动条的实体
  */
 
 public class AdverNotice {

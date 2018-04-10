@@ -14,6 +14,9 @@ import com.dragon.wtudragondesign.view.NavitationLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 会员界面
+ * */
 public class VipActivity extends BaseActivity {
 
     private NavitationLayout navitationLayout;
@@ -23,8 +26,8 @@ public class VipActivity extends BaseActivity {
     private ViewPagerAdapter viewPagerAdapter;
     private List<Fragment> fragments;
 
-    private FragmentVipRecharge mRechMIFI;
-    private FragmentVipQuery mQueryMIFI;
+    private FragmentVipRecharge mVipRecharge;
+    private FragmentVipQuery mVipQuery;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +40,9 @@ public class VipActivity extends BaseActivity {
 
     @Override
     public void init() {
-        mRechMIFI = new FragmentVipRecharge();
-        mQueryMIFI = new FragmentVipQuery();
-        initShowNaviationBar();
+        mVipRecharge = new FragmentVipRecharge();
+        mVipQuery = new FragmentVipQuery();
+        initShowNavigationBar();
     }
 
     @Override
@@ -50,14 +53,14 @@ public class VipActivity extends BaseActivity {
     /**
      * 展示搜索标题栏
      */
-    private void initShowNaviationBar() {
-        navitationLayout = (NavitationLayout) findViewById(R.id.bar1);
-        viewPager = (ViewPager) findViewById(R.id.viewpager1);
+    private void initShowNavigationBar() {
+        navitationLayout = fv(R.id.bar1);
+        viewPager = fv(R.id.viewpager1);
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
 
         fragments = new ArrayList<>();
-        fragments.add(mRechMIFI);
-        fragments.add(mQueryMIFI);
+        fragments.add(mVipRecharge);
+        fragments.add(mVipQuery);
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments);
 

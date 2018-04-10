@@ -10,21 +10,24 @@ import com.dragon.wtudragondesign.bean.AdverNotice;
 import com.dragon.wtudragondesign.view.JDAdverView;
 
 import java.util.List;
+
 /**
  * Created by Dragon on 2017/3/20.
  * 京东广告栏数据适配器
- *
  */
 public class JDViewAdapter {
     private List<AdverNotice> mDatas;
+
     public JDViewAdapter(List<AdverNotice> mDatas) {
         this.mDatas = mDatas;
         if (mDatas == null || mDatas.isEmpty()) {
             throw new RuntimeException("nothing to show");
         }
     }
+
     /**
      * 获取数据的条数
+     *
      * @return
      */
     public int getCount() {
@@ -33,14 +36,17 @@ public class JDViewAdapter {
 
     /**
      * 获取摸个数据
+     *
      * @param position
      * @return
      */
     public AdverNotice getItem(int position) {
         return mDatas.get(position);
     }
+
     /**
      * 获取条目布局
+     *
      * @param parent
      * @return
      */
@@ -50,19 +56,20 @@ public class JDViewAdapter {
 
     /**
      * 条目数据适配
+     *
      * @param view
      * @param data
      */
     public void setItem(final View view, final AdverNotice data) {
-        TextView tv = (TextView) view.findViewById(R.id.title);
+        TextView tv = view.findViewById(R.id.title);
         tv.setText(data.title);
-        TextView tag = (TextView) view.findViewById(R.id.tag);
+        TextView tag = view.findViewById(R.id.tag);
         tag.setText(data.url);
         //你可以增加点击事件
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //比如打开url
+                //比如打开url
                 Toast.makeText(view.getContext(), data.url, Toast.LENGTH_SHORT).show();
             }
         });

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_bg"
     android:layout_height="match_parent">
 
     <GridView
@@ -8,9 +10,101 @@
         android:layout_marginEnd="6dp"
         android:layout_marginTop="10dp"
         android:horizontalSpacing="8dp"
+        android:verticalSpacing="10dp"
         android:id="@+id/gv_vip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="3" />
+    <View
+        android:background="@color/button_press"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="选择支付"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="4dp"
+        android:background="@color/deeper_gray_bg"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/wx_logo"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="微信支付"
+            android:textColor="#333333" />
+
+        <ImageView
+            android:id="@+id/iv_wx_pay"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="18dp"
+            android:src="@mipmap/button_choice_pay_on" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/deeper_gray_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/logo_zfb"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="支付宝支付"
+            android:textColor="#333333" />
+
+        <ImageView
+            android:id="@+id/iv_ali_pay"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="18dp"
+            android:src="@mipmap/button_choice_pay_off" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/deeper_gray_bg" />
+
+    <Button
+        android:id="@+id/btn_recharge_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_selector"
+        android:text="立即充值"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

@@ -58,7 +58,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     public void onBindViewHolder(FriendsAdapter.ViewHolder holder, int position) {
         final String friendName = mFriendsList.get(position);
         holder.friendView.setText(friendName);
-        Glide.with(mContext).load(R.mipmap.photo).transform(new EaseUserUtils.GlideCircleTransform(mContext)).into(holder.imageHead);
+        Glide.with(mContext).load(R.mipmap.tu).transform(new EaseUserUtils.GlideCircleTransform(mContext)).into(holder.imageHead);
 
         holder.friendView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -49,6 +49,7 @@
             android:background="@color/gray_bg" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_add_friend"
             android:layout_width="match_parent"
             android:layout_height="55dp"

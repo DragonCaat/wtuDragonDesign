@@ -18,7 +18,7 @@ import com.dragon.wtudragondesign.R;
 public class UserDataActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mTvVip;
-
+    private TextView mTvFriends;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,9 @@ public class UserDataActivity extends AppCompatActivity implements View.OnClickL
 
         mTvVip = findViewById(R.id.user_vip);
         mTvVip.setOnClickListener(this);
+
+        mTvFriends = findViewById(R.id.user_friends);
+        mTvFriends.setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +68,10 @@ public class UserDataActivity extends AppCompatActivity implements View.OnClickL
             case R.id.user_vip:
                 Intent intent = new Intent(this,VipActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.user_friends:
+                Intent intent1 = new Intent(this,ActivityFriends.class);
+                startActivity(intent1);
                 break;
             default:
                 break;
