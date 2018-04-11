@@ -21,6 +21,8 @@
 
     <color name="sky_blue">#5BC4ED</color>
 
+    <color name="beauty_blue">#ff87ffeb</color>
+
     <color name="button_press">#ecf2f2</color>
 
     <color name="half_transparent">#80000000</color>

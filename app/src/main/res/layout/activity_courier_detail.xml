@@ -67,21 +67,21 @@
                     app:cardCornerRadius="4dp">
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:layout_gravity="center"
                             android:id="@+id/tv_detail_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
+                            android:maxLength="10"
                             android:paddingBottom="4dp"
                             android:paddingTop="4dp"
                             android:text="我是标题"
-                            android:maxLength="10"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -93,8 +93,7 @@
                             android:gravity="center"
                             android:paddingBottom="4dp"
                             android:paddingTop="4dp"
-                            android:text="我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容"
-                            android:maxLength="30"
+                            android:text="这是一篇根据近年来不断发生的现实事件改编出来的小说,一幅幅悬赏广告,是一个个扑朔迷离的谜题,一个个答案,解开了笼罩在都市上空的一张无形巨网,繁华的都市下面,阴暗总是无处不在,当你把一切串起来,那你就离阴暗很近了……"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 
@@ -108,15 +107,14 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/beauty_blue"
             android:scaleType="fitXY"
             app:borderWidth="0dp"
             app:layout_anchor="@id/appBar"
-            app:layout_anchorGravity="bottom|end"
-            app:rippleColor="@android:color/holo_red_light" />
+            app:layout_anchorGravity="bottom|end" />
 
     </android.support.design.widget.CoordinatorLayout>
 

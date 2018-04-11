@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by dragon on 2018/3/24.
  * 带快递悬赏详情界面
@@ -49,6 +51,7 @@ public class CourierDetailsActivity extends AppCompatActivity implements View.On
         Glide.with(this).load(R.mipmap.ti).into(bg);
 
         mFabChat = findViewById(R.id.fab_photo);
+        Glide.with(this).load(R.mipmap.tu).into(mFabChat);
         mFabChat.setOnClickListener(this);
     }
 
