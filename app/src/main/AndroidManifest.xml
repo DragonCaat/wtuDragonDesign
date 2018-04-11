@@ -119,6 +119,9 @@
             android:name=".activity.UserDataActivity"
             android:theme="@style/CourierDetailsTheme" />
         <activity android:name=".activity.VipActivity" />
+        <activity
+            android:name=".activity.ShowUserDataActivity"
+            android:theme="@style/CourierDetailsTheme" />
     </application>
 
 </manifest>

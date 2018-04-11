@@ -1,6 +1,7 @@
 package com.dragon.wtudragondesign.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -25,7 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class CourierDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FloatingActionButton mFabChat;
+    private ImageView mFabChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,9 @@ public class CourierDetailsActivity extends AppCompatActivity implements View.On
         ImageView bg = findViewById(R.id.courier_detail_background);
         Glide.with(this).load(R.mipmap.ti).into(bg);
 
+        //悬浮按钮
         mFabChat = findViewById(R.id.fab_photo);
-        Glide.with(this).load(R.mipmap.tu).into(mFabChat);
+       // Glide.with(this).load(R.mipmap.tu).into(mFabChat);
         mFabChat.setOnClickListener(this);
     }
 
@@ -70,7 +72,9 @@ public class CourierDetailsActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_photo:
-                Toast.makeText(this,"求别点",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ShowUserDataActivity.class);
+                startActivity(intent);
+                //Toast.makeText(this,"求别点",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
