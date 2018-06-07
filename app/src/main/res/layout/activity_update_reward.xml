@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dragon.wtudragondesign.activity.CourierDetailsActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <ImageView
+                    android:id="@+id/courier_detail_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/courier_detail_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <!--快递详情的内容界面-->
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="温馨提示:请先点击接单再联系悬赏人"
+                        android:textColor="@color/holo_red_light"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:maxLength="10"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:text="急需要带一个快递"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/deeper_gray_bg" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/deeper_gray_bg" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:paddingTop="4dp"
+                            android:text="悬赏金额 ¥: "
+                            android:textColor="@color/gray"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_reward_count"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="4"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:paddingTop="4dp"
+                            android:text="1"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:background="@color/deeper_gray_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            app:layout_anchor="@id/appBar"
+            app:layout_anchorGravity="bottom|end">
+
+            <TextView
+                android:id="@+id/tv_publish_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingBottom="30dp"
+                android:paddingEnd="8dp"
+                android:text="微笑的小丑"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/fab_photo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/beauty_blue"
+                android:scaleType="fitXY"
+                android:src="@mipmap/tu" />
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="6dp">
+
+        <Button
+            android:id="@+id/btn_update_reward"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:text="编辑悬赏"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_delete_reward"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="删除悬赏"
+             />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

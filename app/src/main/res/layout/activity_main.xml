@@ -23,13 +23,14 @@
                 android:background="@color/orange">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:src="@drawable/photo"
                     android:id="@+id/circle_menu"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="left"
                     android:gravity="center"
                     android:padding="2dp"
-                    android:src="@mipmap/photo" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_head_title"
@@ -41,7 +42,6 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,7 +49,8 @@
                     android:layout_marginEnd="10dp"
                     android:text="武汉"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
             </android.support.v7.widget.Toolbar>
 
@@ -66,10 +67,10 @@
                     android:paddingBottom="50dp" />
 
                 <TextView
-                    android:layout_above="@+id/ll_bottom"
-                    android:background="@color/gray_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp" />
+                    android:layout_height="1dp"
+                    android:layout_above="@+id/ll_bottom"
+                    android:background="@color/gray_bg" />
 
                 <LinearLayout
                     android:id="@+id/ll_bottom"
@@ -117,25 +118,44 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:visibility="gone"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:layout_marginStart="8dp"
                             android:src="@mipmap/icon_unread_message"
-                            android:layout_width="10dp"
-                            android:layout_height="10dp" />
+                            android:visibility="gone" />
 
-                        <ImageView
-                            android:id="@+id/iv_bottom_message"
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-                            android:layout_weight="2"
-                            android:scaleType="center"
-                            android:src="@mipmap/message_normal" />
+                            android:layout_weight="2">
+
+                            <ImageView
+                                android:id="@+id/iv_bottom_message"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:scaleType="center"
+                                android:src="@mipmap/message_normal" />
+
+                            <TextView
+                                android:textSize="8sp"
+                                android:gravity="center"
+                                android:visibility="invisible"
+                                android:id="@+id/tv_message_count"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="4dp"
+                                android:background="@drawable/circle_red_shape"
+                                android:padding="2dp"
+                                android:text="1"
+                                android:textColor="@color/white" />
+
+                        </RelativeLayout>
 
                         <TextView
                             android:id="@+id/tv_bottom_message"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
-
                             android:layout_weight="1"
                             android:text="消息"
                             android:textColor="@color/gray"

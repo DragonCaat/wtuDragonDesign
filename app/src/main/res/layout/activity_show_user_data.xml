@@ -13,10 +13,10 @@
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
-            android:background="@android:color/transparent"
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:background="@android:color/transparent"
             android:fitsSystemWindows="true">
 
             <android.support.design.widget.CollapsingToolbarLayout
@@ -29,39 +29,44 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <LinearLayout
-                    android:layout_gravity="bottom"
-                    android:orientation="horizontal"
-                    android:background="#66ffffff"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp">
+                    android:layout_height="120dp"
+                    android:layout_gravity="bottom"
+                    android:background="#26ffffff"
+                    android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_marginStart="20dp"
+                        android:id="@+id/cv_show_user"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:layout_gravity="center"
-                        android:src="@mipmap/photo"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
+                        android:layout_marginStart="20dp"
+                        android:src="@mipmap/photo" />
 
                     <LinearLayout
-                        android:layout_marginStart="16dp"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:id="@+id/tv_show_nickName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="微笑的小丑"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/deeper_gray_bg"
-                            android:textSize="14sp"
-                            android:text="科学的甜美气息"
+                            android:id="@+id/tv_show_sign"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="科学的甜美气息"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -72,7 +77,28 @@
                     android:id="@+id/courier_detail_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin" />
+                    android:gravity="center"
+                    app:layout_collapseMode="pin">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingEnd="20dp">
+
+                        <TextView
+                            android:id="@+id/tv_user_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.Toolbar>
+
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
@@ -87,33 +113,220 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
+                android:background="#E6FFFFFF"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="35dp"
-                    android:background="@color/white_bg"
-                    app:cardCornerRadius="4dp">
+                    android:layout_height="20dp"
+                    android:background="#80000000"
+                    android:paddingBottom="2dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="2dp"
+                    android:text="真是个深思熟虑的选择"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_show_userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="12dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@mipmap/user"
+                    android:gravity="center|start"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_bg" />
+
+
+                <TextView
+                    android:id="@+id/user_vip"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@mipmap/have_vip"
+                    android:gravity="center|start"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="12dp"
+                    android:text="普通会员"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_bg" />
+
+
+                <TextView
+                    android:id="@+id/user_reputation"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@mipmap/reputation"
+                    android:gravity="center|start"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="12dp"
+                    android:text="信誉 一般 (60)"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/line_break" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="主题照片"
+                        android:textColor="@color/black" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="202dp"
+                            android:layout_weight="2"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/ti" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="200dp"
+                            android:background="@color/white" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/ta" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/white" />
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:scaleType="fitXY"
+                                android:src="@mipmap/ti" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/third" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/first" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/white" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/second" />
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                </LinearLayout>
+
 
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="6dp">
+
+        <Button
+            android:id="@+id/btn_chat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_whit_selector"
+            android:text="聊天联系"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btn_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:text="电话联系"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
 
 </RelativeLayout>

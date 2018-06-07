@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.activity.ActivityFriends;
 import com.dragon.wtudragondesign.activity.AddFriendActivity;
@@ -68,6 +70,10 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
 
     private Button mBtnLoginOut;
 
+    private String userId = "";
+
+    private String headImage = "";
+
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
 
@@ -92,6 +98,8 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my, container, false);
         init();
+        userId = "" + PreferencesUtils.getInt(getContext(), Const.ID);
+
         return view;
     }
 
@@ -135,17 +143,25 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
                 intentToNewPage(AddFriendActivity.class);
                 break;
             case R.id.tv_my_publish_reward:
-                intentToNewPage(MyPublishRewardActivity.class);
+                if (TextUtils.isEmpty(userId))
+                    Toast.makeText(getContext(), "当前未登陆", Toast.LENGTH_SHORT).show();
+                else
+                    intentToNewPage(MyPublishRewardActivity.class);
                 break;
             case R.id.tv_my_receive_reward:
                 intentToNewPage(MyReceiveRewardActivity.class);
                 break;
             case R.id.cv_photo:
-                intentToNewPage(LoginActivity.class);
+                String userName = PreferencesUtils.getString(getContext(), Const.USER_NAME);
+                if (TextUtils.isEmpty(userName))
+                    intentToNewPage(LoginActivity.class);
+                else
+                    Toast.makeText(getContext(), "你已经登陆,退出登陆后再试", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.btn_login_out:
                 //退出登录
-                showDialog();
+                loginOutFromWeb();
                 break;
             case R.id.tv_about_our:
                 intentToNewPage(BusinessCooperationActivity.class);
@@ -165,6 +181,19 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
     }
+
+
+    private void loginOutFromWeb() {
+        String userName = PreferencesUtils.getString(getContext(), Const.USER_NAME);
+        if (TextUtils.isEmpty(userName)) {
+            Toast.makeText(getContext(), "你还未登录", Toast.LENGTH_SHORT).show();
+        } else {
+            showDialog();
+        }
+
+
+    }
+
 
     // 退出登录的弹框
     @SuppressWarnings("deprecation")
@@ -212,17 +241,31 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
             }
         });
     }
+
     //退出登陆清除用户数据
-    private void cleanUserData(){
-        PreferencesUtils.putString(getActivity(), Const.USER_NAME,"");
-        PreferencesUtils.putString(getActivity(), Const.PASS_WORD,"");
+    private void cleanUserData() {
+        PreferencesUtils.putString(getActivity(), Const.USER_NAME, "");
+        PreferencesUtils.putString(getActivity(), Const.PASS_WORD, "");
+        PreferencesUtils.putInt(getActivity(), Const.ID, 0);
         Toast.makeText(getContext(), "退出成功", Toast.LENGTH_SHORT).show();
         hideProgressDialog();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        headImage = PreferencesUtils.getString(getActivity(), Const.HEAD_IMAGE);
+        if (!TextUtils.isEmpty(headImage))
+        Glide.with(this).load(Const.BASE_URL + headImage)
+                .placeholder(R.mipmap.photo)
+                .into(mCvPhoto);
     }
 
     //展示加载对话框
     private void showProgressDialog() {
         proDialog = android.app.ProgressDialog.show(getActivity(), "", "正在退出登录");
+
+        proDialog.setCanceledOnTouchOutside(true);
     }
 
     private void hideProgressDialog() {

@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -22,15 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.alibaba.fastjson.JSON;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.bean.ResultEntity;
+import com.dragon.wtudragondesign.bean.UserDataEntity;
 import com.dragon.wtudragondesign.retrofit.ApiService;
 import com.dragon.wtudragondesign.retrofit.RetrofitClient;
 import com.dragon.wtudragondesign.template.BaseActivity;
+import com.dragon.wtudragondesign.utils.KeyCodeUtils;
 import com.dragon.wtudragondesign.utils.PreferencesUtils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.domain.EaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +65,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private String userName = "";
     private String passWord = "";
-
+    private int userId = 0;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -76,6 +79,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     break;
                 case LOGIN_FAIL:
                     recovery();
+                    mBtnLogin.setEnabled(true);
                     break;
                 default:
                     break;
@@ -143,8 +147,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            loginToEase();
-                            //login(userName,passWord);
+                            //loginToEase();
+                            login(userName,passWord);
                         }
                     });
                 }
@@ -157,6 +161,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.main_btn_login:
                 initData();
+                KeyCodeUtils.closeKeyCode(this,mBtnLogin);
                 break;
             case R.id.tv_register:
                 skipPageWithAnim(RegisterActivity.class);
@@ -273,9 +278,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onSuccess() {
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();
-                skipPage(MainActivity.class);
                 mHandler.sendEmptyMessage(LOGIN_SUCESS);
-
             }
 
             @Override
@@ -295,8 +298,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void login(String _loginName, String _loginPassWord) {
         ApiService api = RetrofitClient.getInstance(this).Api();
         Map<String, String> params = new HashMap<>();
-        params.put("username", _loginName);
-        params.put("pwd", _loginPassWord);
+
+        params.put("userName", _loginName);
+        params.put("password", _loginPassWord);
+
         Call<ResultEntity> call = api.login(params);
         call.enqueue(new retrofit2.Callback<ResultEntity>() {
             @Override
@@ -308,17 +313,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 ResultEntity result = response.body();
                 int res = result.getCode();
-                if (res == 0) {// 登录成功
-                    Log.i("%%%%%%%%%%%%%%%%%", "onResponse: 登陆成功");
+                if (res == 1) {// 登录成功
+
+                    userId = (int) result.getData();
+                    loginToEase();
 
                 } else {
+                    Toast.makeText(LoginActivity.this,""+result.getMsg(),Toast.LENGTH_SHORT).show();
 
+                    mHandler.sendEmptyMessage(LOGIN_FAIL);
                 }
             }
 
             @Override
             public void onFailure(Call<ResultEntity> arg0, Throwable arg1) {
-                Log.i("%%%%%%%%%%%%%%%%%", "onResponse: 登陆失败");
+                mHandler.sendEmptyMessage(LOGIN_FAIL);
             }
         });
     }
@@ -327,10 +336,66 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void saveUserData() {
         PreferencesUtils.putString(getAct(), Const.USER_NAME, userName);
         PreferencesUtils.putString(getAct(), Const.PASS_WORD, passWord);
+        PreferencesUtils.putInt(getAct(), Const.ID, userId);
 
-        finish();
+        getUserData();
+
     }
 
+    // 获取用户信息
+    private void getUserData() {
+        ApiService api = RetrofitClient.getInstance(this).Api();
+        // Map<String, Object> params = new HashMap<>();
+        Call<ResultEntity> call = api.getUserData(userId);
+        call.enqueue(new retrofit2.Callback<ResultEntity>() {
+            @Override
+            public void onResponse(Call<ResultEntity> call,
+                                   Response<ResultEntity> response) {
+
+                if (response.body() == null) {
+                    return;
+                }
+                ResultEntity result = response.body();
+                int res = result.getCode();
+                if (res == 1) {// 请求成功
+                    UserDataEntity userDataEntity = JSON.parseObject(result.getData().toString(), UserDataEntity.class);
+                    if (userDataEntity != null)
+                        saveData(userDataEntity);
+                    skipPage(MainActivity.class);
+                    finish();
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultEntity> arg0, Throwable arg1) {
+
+            }
+        });
+    }
+
+    private void saveData(UserDataEntity userDataEntity) {
+        if (!TextUtils.isEmpty(userDataEntity.getHeadImg()))
+            PreferencesUtils.putString(LoginActivity.this, Const.HEAD_IMAGE, userDataEntity.getHeadImg());
+
+        if (!TextUtils.isEmpty(userDataEntity.getNickName()))
+            PreferencesUtils.putString(LoginActivity.this, Const.NICK_NAME, userDataEntity.getNickName());
+
+        if (!TextUtils.isEmpty(userDataEntity.getSign()))
+            PreferencesUtils.putString(LoginActivity.this, Const.SIGN, userDataEntity.getSign());
+
+
+
+        EaseUser eUser = new EaseUser(userName);
+        if (!TextUtils.isEmpty(userDataEntity.getHeadImg())){
+
+            PreferencesUtils.putString(LoginActivity.this, Const.SIGN, userDataEntity.getSign());
+            eUser.setAvatar(userDataEntity.getHeadImg());
+        }
+
+
+    }
 
     @Override
     protected void onDestroy() {

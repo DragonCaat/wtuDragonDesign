@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
+import com.dragon.wtudragondesign.bean.Const;
 
 import java.io.File;
 import java.util.List;
@@ -56,8 +59,11 @@ public class CourierPictureAdapter extends BaseAdapter {
         ImageView imageView = view.findViewById(R.id.iv_courier_item);
         File file = new File(mPicList.get(position));
         if(file.exists()){
-            Bitmap bm = BitmapFactory.decodeFile(mPicList.get(position));
-            imageView.setImageBitmap(bm);
+            Glide.with(mContext).load(mPicList.get(position))
+                    .centerCrop()
+                    .into(imageView);
+//            Bitmap bm = BitmapFactory.decodeFile(mPicList.get(position));
+//            imageView.setImageBitmap(bm);
         }else {
             Toast.makeText(mContext,"当前路径图片不存在",Toast.LENGTH_SHORT).show();
         }

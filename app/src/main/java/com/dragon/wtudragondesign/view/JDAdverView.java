@@ -168,7 +168,7 @@ public class JDAdverView extends LinearLayout {
         canvas.drawText("瑞士维氏军刀", TEXTSIZE, getHeight() * 2 / 3, mPaint);//写文字2/3的高度
     }
     /**
-     * 垂直滚蛋
+     * 垂直滚动
      */
     private void performSwitch() {
          //属性动画控制控件滚动，y轴方向移动

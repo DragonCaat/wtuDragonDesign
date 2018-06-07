@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.bean.Const;
+import com.dragon.wtudragondesign.utils.PreferencesUtils;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -38,10 +40,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private TextView mTextViewCount;
 
+    private LinearLayout mLlCount;
+
     private ImageView imageView;
 
     private static int count = 5;
     private Timer timer;// = new Timer();
+
+    private String firstGuide = "";
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -67,13 +73,18 @@ public class WelcomeActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
+
+        firstGuide = PreferencesUtils.getString(this,Const.FIRST_GUIDE);
         //标题是属于View的，所以窗口所有的修饰部分被隐藏后标题依然有效,需要去掉标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_welcome);
 
         mTextViewCount = findViewById(R.id.circle_text_count);
-        mTextViewCount.setOnClickListener(new View.OnClickListener() {
+
+        mLlCount = findViewById(R.id.ll_count);
+
+        mLlCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getHome();
@@ -93,8 +104,14 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void getHome() {
-        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-        startActivity(intent);
+        if (TextUtils.isEmpty(firstGuide)){
+            Intent intent = new Intent(WelcomeActivity.this, GuideActivity.class);
+            startActivity(intent);
+        }else {
+
+            Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
 
@@ -107,8 +124,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     mTextViewCount.setText("" + count);
 
                     if (count < 1) {
-                        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        getHome();
                         if (timer != null) {
                             timer.cancel();
                             timer.purge();

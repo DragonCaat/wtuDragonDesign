@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.dragon.wtudragondesign.activity.VipByCardActivity">
+    <View
+        android:background="@color/gray_bg"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <ImageView
+        android:layout_marginTop="8dp"
+        android:padding="2dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/vip_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
+
+    <LinearLayout
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:text="充值账号:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="18sp"
+            android:layout_marginStart="12dp"
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <EditText
+        android:paddingStart="8dp"
+        android:id="@+id/et_recharge_number"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_courier_pics"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/btn_recharge"
+        android:textColor="@color/white"
+        android:text="立即充值"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

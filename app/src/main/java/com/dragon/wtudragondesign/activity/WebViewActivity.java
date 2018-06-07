@@ -54,7 +54,7 @@ public class WebViewActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(urlString)) {
             webView.loadUrl("");
-            showToast("无企业相关信息");
+            showToast("无相关信息");
         } else {
             webView.loadUrl(urlString);
         }

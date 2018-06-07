@@ -40,4 +40,46 @@
         <attr name="waveWidth2" format="dimension"></attr>
     </declare-styleable>
 
+
+    <style name="MyDialogTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowFrame">@null</item><!-- 边框 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item><!-- 外部变灰 -->
+        <item name="android:windowContentOverlay">@null</item><!-- 内部阴影 -->
+        <item name="android:windowAnimationStyle">@style/dialog_animation</item>
+    </style>
+    <style name="dialog_animation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+
+
+    <style name="CustomDialogStyle" parent="@android:style/Theme.Dialog">
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+
+        <!-- 背景模糊 -->
+        <item name="android:windowContentOverlay">@null</item>
+
+        <!-- 允许对话框的背景变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+
+        <!-- 字体颜色 -->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+    </style>
+
 </resources>

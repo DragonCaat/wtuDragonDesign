@@ -91,23 +91,25 @@
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/tv_news"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:drawablePadding="2dp"
                                 android:drawableTop="@mipmap/hot"
                                 android:gravity="center"
-                                android:text="悬赏"
+                                android:text="新闻"
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/tv_play"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:drawablePadding="2dp"
                                 android:drawableTop="@mipmap/hot"
                                 android:gravity="center"
-                                android:text="悬赏"
+                                android:text="加载"
                                 android:textSize="12sp" />
 
                         </LinearLayout>

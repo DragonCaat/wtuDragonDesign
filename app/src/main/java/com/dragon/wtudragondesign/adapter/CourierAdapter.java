@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.activity.CourierDetailsActivity;
+import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.bean.CourierEntity;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class CourierAdapter extends RecyclerView.Adapter<CourierAdapter.ViewHold
         TextView userView;
 
         CardView cardView;
+
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_pic);
@@ -60,18 +62,22 @@ public class CourierAdapter extends RecyclerView.Adapter<CourierAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(CourierAdapter.ViewHolder holder, int position) {
-        CourierEntity courierEntity = mCourierList.get(position);
+        final CourierEntity courierEntity = mCourierList.get(position);
         holder.titleView.setText(courierEntity.getTitle());
         holder.contentView.setText(courierEntity.getContent());
-        holder.userView.setText(courierEntity.getUser());
-        Glide.with(mContext).load(courierEntity.getPicUrl())
-                .placeholder(R.mipmap.ic_launcher)
+        holder.userView.setText(courierEntity.getPublisherUserName());
+
+        Glide.with(mContext).load(Const.BASE_URL + courierEntity.getImgSrc())
+                .placeholder(R.mipmap.ta)
+                .centerCrop()
                 .into(holder.imageView);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CourierDetailsActivity.class);
+                intent.putExtra("userId", courierEntity.getId());
+                intent.putExtra("pic", courierEntity.getImgSrc());
                 mContext.startActivity(intent);
             }
         });

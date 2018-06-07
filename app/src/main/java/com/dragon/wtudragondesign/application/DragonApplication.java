@@ -1,16 +1,18 @@
 package com.dragon.wtudragondesign.application;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.Application;
-import android.content.pm.PackageManager;
-import android.support.multidex.MultiDexApplication;
-import android.support.v4.app.ActivityCompat;
 
+import android.support.multidex.MultiDexApplication;
+
+import com.dragon.wtudragondesign.bean.Const;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.domain.EaseUser;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 /**
@@ -18,7 +20,11 @@ import com.hyphenate.easeui.EaseUI;
  * 我的个人application
  */
 
-public class DragonApplication extends MultiDexApplication {
+public class DragonApplication extends MultiDexApplication implements
+        EaseUI.EaseUserProfileProvider {
+
+    public static DragonApplication application;
+    private Map<String, EaseUser> usrList = new HashMap<String, EaseUser>();
     @Override
     public void onCreate() {
         super.onCreate();
@@ -40,5 +46,31 @@ public class DragonApplication extends MultiDexApplication {
 
         //easeUI的初始化
         EaseUI.getInstance().init(getApplicationContext(), options);
+
+        //EaseUI.getInstance().setUserProfileProvider(this);
+    }
+
+    public static DragonApplication getInstance() {
+        if (null == application) {
+            application = new DragonApplication();
+        }
+        return application;
+    }
+
+    @Override
+    public void onLowMemory() {
+        System.gc();
+        super.onLowMemory();
+    }
+
+    public Map<String, EaseUser> getUsrList() {
+        return usrList;
+    }
+
+    @Override
+    public EaseUser getUser(String username) {
+        
+
+        return null;
     }
 }

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,22 +16,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
 import com.dragon.wtudragondesign.activity.AddNewCourierActivity;
+import com.dragon.wtudragondesign.activity.LoginActivity;
+import com.dragon.wtudragondesign.activity.NewsActivity;
+import com.dragon.wtudragondesign.activity.PlayActivity;
 import com.dragon.wtudragondesign.activity.ReputationActivity;
 import com.dragon.wtudragondesign.activity.RewardActivity;
 import com.dragon.wtudragondesign.activity.SearchActivity;
+import com.dragon.wtudragondesign.activity.VipActivity;
 import com.dragon.wtudragondesign.adapter.CourierAdapter;
 import com.dragon.wtudragondesign.adapter.JDViewAdapter;
 import com.dragon.wtudragondesign.bean.AdverNotice;
+import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.bean.CourierEntity;
+import com.dragon.wtudragondesign.bean.ResultEntity;
+import com.dragon.wtudragondesign.bean.RewardEntity;
+import com.dragon.wtudragondesign.retrofit.ApiService;
+import com.dragon.wtudragondesign.retrofit.RetrofitClient;
 import com.dragon.wtudragondesign.utils.CornersTransform;
+import com.dragon.wtudragondesign.utils.PreferencesUtils;
 import com.dragon.wtudragondesign.view.CustomerViewPagerComponent;
 import com.dragon.wtudragondesign.view.JDAdverView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Dragon on 2018/3/20.
@@ -41,7 +58,8 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     private RecyclerView mRvMain;
     //快递信息的适配器
     private CourierAdapter courierAdapter;
-    private List<CourierEntity> mCourierList = new ArrayList<>();
+
+    private List<CourierEntity> mCourierList;
 
     private RecyclerView mRvVipCourier;
     //自定义的bannerView
@@ -72,13 +90,27 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     //信誉按钮
     private TextView mTvReputation;
 
+    private String userName = "";
+
+    //会员图片
+    private ImageView mIvVip;
+
+    //加载
+    private TextView mTvPlay;
+
+    private TextView mTvNews;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        userName = PreferencesUtils.getString(getContext(), Const.USER_NAME);
+
         view = inflater.inflate(R.layout.fragment_main, container, false);
-        initCourier();
+        //initCourier();
         init();
         initData();
+
         return view;
     }
 
@@ -89,7 +121,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
         customerViewPagerComponent = view
                 .findViewById(R.id.customerViewPager);
-        customerViewPagerComponent.setImages(imgs,getActivity());
+        customerViewPagerComponent.setImages(imgs, getActivity());
 
         tbView = view.findViewById(R.id.notice);
 
@@ -104,23 +136,28 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
 
         mTvReputation = view.findViewById(R.id.tv_reputation_main);
         mTvReputation.setOnClickListener(this);
+
+        mIvVip = view.findViewById(R.id.iv_vip_reward);
+        mIvVip.setOnClickListener(this);
+
+        mTvPlay = view.findViewById(R.id.tv_play);
+        mTvPlay.setOnClickListener(this);
+
+        mTvNews = view.findViewById(R.id.tv_news);
+        mTvNews.setOnClickListener(this);
     }
 
     public void initData() {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         //layoutManager.setScrollEnabled(false);
         mRvMain.setLayoutManager(layoutManager);
-        courierAdapter = new CourierAdapter(mCourierList);
-        mRvMain.setAdapter(courierAdapter);
         mRvMain.setNestedScrollingEnabled(false);
 
         //vip悬赏的recycleView
         GridLayoutManager layoutManager1 = new GridLayoutManager(getActivity(), 2);
         mRvVipCourier.setLayoutManager(layoutManager1);
-        //courierAdapter1 = new CourierAdapter(mCourierList);
-        mRvVipCourier.setAdapter(courierAdapter);
-        mRvVipCourier.setNestedScrollingEnabled(false);
 
+        mRvVipCourier.setNestedScrollingEnabled(false);
 
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(this);
@@ -135,16 +172,11 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initCourier() {
-        mCourierList.clear();
-        for (int i = 0; i < 4; i++) {
-            CourierEntity entity = new CourierEntity();
-            entity.setContent("我是内容" + i);
-            entity.setTitle("我是标题" + i);
-            entity.setUser("我是发布人" + i);
-            entity.setPicUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522381888&di=f211133b39e6c1560086398fca108096&imgtype=" +
-                    "jpg&er=1&src=http%3A%2F%2Fpic.makepolo.net%2Fnews%2Fallimg%2F20170104%2F1483523748005045.jpg");
-            mCourierList.add(entity);
-        }
+        if (mCourierList != null)
+            mCourierList.clear();
+        getNormalPush();
+
+        getVipPush();
     }
 
     @Override
@@ -167,8 +199,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getContext(), "没数据，刷个毛啊", Toast.LENGTH_SHORT).show();
-                        swipeRefresh.setRefreshing(false);
+                        initCourier();
                     }
                 });
             }
@@ -179,9 +210,14 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab_add:
-                //在此做跳转界面，编写发布界面
-                Intent intent = new Intent(getActivity(), AddNewCourierActivity.class);
-                startActivity(intent);
+                if (TextUtils.isEmpty(userName)) {
+                    Toast.makeText(getContext(), "请先登陆", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    //在此做跳转界面，编写发布界面
+                    Intent intent = new Intent(getActivity(), AddNewCourierActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.tv_search_main:
                 //在此做跳转界面，跳转搜索界面
@@ -200,9 +236,102 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
                 startActivity(intent3);
                 break;
 
+            case R.id.iv_vip_reward:
+                //在此做跳转界面，跳转会员界面
+                Intent intent4 = new Intent(getActivity(), VipActivity.class);
+                startActivity(intent4);
+                break;
+
+            case R.id.tv_play:
+                //在此做跳转界面，跳转会员界面
+                Intent intent5 = new Intent(getActivity(), PlayActivity.class);
+                startActivity(intent5);
+                break;
+
+            case R.id.tv_news:
+                //在此做跳转界面，跳转会员界面
+                Intent intent6 = new Intent(getActivity(), NewsActivity.class);
+                startActivity(intent6);
+                break;
+
             default:
                 break;
         }
+    }
+
+    // 获取紧急悬赏数据
+    private void getNormalPush() {
+        ApiService api = RetrofitClient.getInstance(getContext()).Api();
+        Map<String, Object> params = new HashMap<>();
+
+        Call<ResultEntity> call = api.publishNormal(params);
+        call.enqueue(new retrofit2.Callback<ResultEntity>() {
+            @Override
+            public void onResponse(Call<ResultEntity> call,
+                                   Response<ResultEntity> response) {
+
+                if (response.body() == null) {
+                    return;
+                }
+                ResultEntity result = response.body();
+                int res = result.getCode();
+                if (res == 1) {// 请求成功
+                    mCourierList = JSON.parseArray(result.getData().toString(), CourierEntity.class);
+                    if (mCourierList.size() > 0) {
+                        courierAdapter = new CourierAdapter(mCourierList);
+                        mRvMain.setAdapter(courierAdapter);
+                    }
+
+                } else {
+                    Toast.makeText(getContext(), "" + result.getMsg(), Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultEntity> arg0, Throwable arg1) {
+
+            }
+        });
+    }
+
+    // 获取VIP悬赏数据
+    private void getVipPush() {
+        ApiService api = RetrofitClient.getInstance(getContext()).Api();
+        Map<String, Object> params = new HashMap<>();
+
+        Call<ResultEntity> call = api.publishVip(params);
+        call.enqueue(new retrofit2.Callback<ResultEntity>() {
+            @Override
+            public void onResponse(Call<ResultEntity> call,
+                                   Response<ResultEntity> response) {
+
+                if (response.body() == null) {
+                    return;
+                }
+                ResultEntity result = response.body();
+                int res = result.getCode();
+                if (res == 1) {// 请求成功
+                    mCourierList = JSON.parseArray(result.getData().toString(), CourierEntity.class);
+                    if (mCourierList.size() > 0) {
+                        courierAdapter = new CourierAdapter(mCourierList);
+                        mRvVipCourier.setAdapter(courierAdapter);
+                    }
+                    swipeRefresh.setRefreshing(false);
+
+                } else {
+                    Toast.makeText(getContext(), "" + result.getMsg(), Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultEntity> arg0, Throwable arg1) {
+
+            }
+        });
     }
 
     //初始化滚动条
@@ -221,6 +350,7 @@ public class FragmentMain extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onStart() {
         super.onStart();
+        initCourier();
     }
 
     @Override

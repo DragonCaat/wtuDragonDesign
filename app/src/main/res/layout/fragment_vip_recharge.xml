@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray_bg"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <GridView
@@ -15,10 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="3" />
+
     <View
-        android:background="@color/button_press"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="47dp"
+        android:background="@color/button_press" />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -28,6 +32,43 @@
         android:text="选择支付"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/deeper_gray_bg" />
+
+    <RelativeLayout
+        android:id="@+id/rl_recharge_vip"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_marginStart="10dp"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="充值卡充值"
+            android:textColor="#333333" />
+
+        <ImageView
+            android:scaleType="center"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="18dp"
+            android:src="@mipmap/into" />
+    </RelativeLayout>
+
+
+
     <TextView
         android:layout_marginTop="4dp"
         android:background="@color/deeper_gray_bg"

@@ -39,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin" />
+
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
@@ -48,81 +49,144 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/gray_bg"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="35dp"
-                    android:background="@color/white_bg"
-                    app:cardCornerRadius="4dp">
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="温馨提示:请先点击接单再联系悬赏人"
+                        android:textColor="@color/holo_red_light"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:maxLength="10"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:text="急需要带一个快递"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/deeper_gray_bg" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/deeper_gray_bg" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_detail_title"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:maxLength="10"
-                            android:paddingBottom="4dp"
-                            android:paddingTop="4dp"
-                            android:text="我是标题"
-                            android:textColor="@color/black"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tv_detail_content"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_weight="2"
                             android:gravity="center"
                             android:paddingBottom="4dp"
                             android:paddingTop="4dp"
-                            android:text="这是一篇根据近年来不断发生的现实事件改编出来的小说,一幅幅悬赏广告,是一个个扑朔迷离的谜题,一个个答案,解开了笼罩在都市上空的一张无形巨网,繁华的都市下面,阴暗总是无处不在,当你把一切串起来,那你就离阴暗很近了……"
+                            android:text="悬赏金额 ¥: "
+                            android:textColor="@color/gray"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_reward_count"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="4"
+                            android:gravity="center"
+                            android:paddingBottom="4dp"
+                            android:paddingTop="4dp"
+                            android:text="1"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
 
                     </LinearLayout>
 
-                </android.support.v7.widget.CardView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/deeper_gray_bg" />
 
+                    <TextView
+                        android:id="@+id/tv_detail_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:gravity="right"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
             </LinearLayout>
+
 
         </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="80dp"
+            android:layout_margin="16dp"
             android:orientation="horizontal"
             app:layout_anchor="@id/appBar"
-            android:layout_margin="16dp"
             app:layout_anchorGravity="bottom|end">
 
             <TextView
-                android:textSize="16sp"
-                android:paddingEnd="8dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
-                android:text="微笑的小丑"
-                android:paddingBottom="30dp"
+                android:id="@+id/tv_publish_name"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingBottom="30dp"
+                android:paddingEnd="8dp"
+                android:text="微笑的小丑"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/fab_photo"
@@ -134,5 +198,40 @@
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="6dp">
+
+        <Button
+            android:id="@+id/btn_connection"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="3"
+            android:background="@drawable/button_selector"
+            android:text="和他联系"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_receive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg_normal"
+            android:gravity="center"
+            android:text="点我接单" />
+
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -4,9 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.dragon.wtudragondesign.activity.MyReceiveRewardActivity">
-    <ImageView
-        android:scaleType="center"
-        android:src="@mipmap/icon_no_reward"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_my_receive"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_no"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            android:src="@mipmap/icon_no_reward" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="你还没有发布悬赏，快去发布试试吧"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+    </LinearLayout>
 </RelativeLayout>

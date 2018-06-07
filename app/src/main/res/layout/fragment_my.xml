@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_bg"
+    android:background="@color/white"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="left"
-            android:background="@drawable/button_my_selector"
+            android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/friend"
             android:gravity="left|center"
@@ -65,13 +65,17 @@
             android:textColor="@color/black"
             android:textSize="14sp" />
 
+        <View
+            android:background="@color/gray_bg"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
         <TextView
             android:id="@+id/tv_my_publish_reward"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_my_selector"
+            android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/reward"
             android:gravity="left|center"
@@ -92,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_my_selector"
+            android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/icon_profit"
             android:gravity="left|center"
@@ -113,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_my_selector"
+            android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/icon_cooperation"
             android:gravity="left|center"
@@ -133,7 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_my_selector"
+            android:background="?android:attr/selectableItemBackground"
             android:drawablePadding="12dp"
             android:drawableStart="@mipmap/vip_icon"
             android:gravity="left|center"
@@ -143,8 +147,13 @@
             android:text="会员充值"
             android:textColor="@color/black"
             android:textSize="14sp" />
+
+        <View
+            android:background="@color/gray_bg"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
         <TextView
-            android:layout_marginTop="10dp"
             android:id="@+id/tv_setting"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -161,13 +170,19 @@
             android:textSize="14sp" />
 
 
+        <View
+            android:background="@color/gray_bg"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
         <Button
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:id="@+id/btn_login_out"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_my_selector"
+            android:background="@drawable/button_selector"
             android:drawablePadding="12dp"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"

@@ -15,11 +15,12 @@
         <ImageView
             android:id="@+id/iv_pic"
             android:src="@mipmap/ic_launcher"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="100dp" />
 
         <TextView
+            android:singleLine="true"
             android:text="hello,我是标题"
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         <TextView
-            android:text="橙子"
+            android:singleLine="true"
             android:layout_marginBottom="8dp"
             android:id="@+id/tv_user"
             android:layout_gravity="right"

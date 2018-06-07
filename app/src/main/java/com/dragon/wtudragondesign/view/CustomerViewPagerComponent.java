@@ -52,7 +52,7 @@ public class CustomerViewPagerComponent extends RelativeLayout implements
 				Glide.with(getContext())
 						.load(images[i])
 						// 设置glide加载图片不缓存
-						.transform(new CornersTransform(getContext(),50))
+						.transform(new CornersTransform(getContext(),10))
 						.into(imageViews[i]);
 				imageViews[i].setScaleType(ImageView.ScaleType.FIT_XY);
 				imageViews[i].setOnClickListener(new OnClickListener() {

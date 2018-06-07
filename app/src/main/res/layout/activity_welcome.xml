@@ -1,28 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@mipmap/splash"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/splash">
 
     <ImageView
         android:id="@+id/imageView"
-        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-         />
+        android:scaleType="fitXY" />
 
-    <TextView
-        android:id="@+id/circle_text_count"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
+    <LinearLayout
+        android:id="@+id/ll_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/circle_shape"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
         android:gravity="center"
-        android:padding="2dp"
-        android:textColor="@android:color/white" />
+        android:background="@drawable/circle_shape"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <TextView
+            android:paddingStart="4dp"
+            android:id="@+id/circle_text_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:paddingEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳过"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 
 </RelativeLayout>

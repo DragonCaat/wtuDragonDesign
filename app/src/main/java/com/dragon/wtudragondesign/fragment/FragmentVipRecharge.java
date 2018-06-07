@@ -1,132 +1,178 @@
 package com.dragon.wtudragondesign.fragment;
 
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.dragon.wtudragondesign.R;
+import com.dragon.wtudragondesign.activity.VipByCardActivity;
 import com.dragon.wtudragondesign.adapter.VipRechargeAdapter;
+import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.bean.VipEntity;
+import com.dragon.wtudragondesign.utils.PreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * 会员充值的fragment
  */
-public class FragmentVipRecharge extends Fragment implements AdapterView.OnItemClickListener{
+public class FragmentVipRecharge extends Fragment implements AdapterView.OnItemClickListener {
 
-	private View view;
+    // 支付类型
+    private String PAYFLAG = Const.WX_PAY;
 
-	private GridView mGvVip;
+    private static final int SDK_PAY_FLAG = 1;
+    private static final int SDK_AUTH_FLAG = 2;
 
-	private List<VipEntity> list;
+    private View view;
 
-	private VipRechargeAdapter adapter;
+    private GridView mGvVip;
 
-	private ImageView mImageViewWXPay;
-	private ImageView mImageViewALiPay;
+    private List<VipEntity> list;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		
-		view = inflater.inflate(R.layout.fragment_vip_recharge, container, false);
+    private VipRechargeAdapter adapter;
 
-		init();
-		return view;
+    private ImageView mImageViewWXPay;
+    private ImageView mImageViewALiPay;
 
-	}
-	protected void init() {
+    private RelativeLayout mRlRecharegeVip;
 
-		mGvVip = view.findViewById(R.id.gv_vip);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		initData();
+        view = inflater.inflate(R.layout.fragment_vip_recharge, container, false);
 
-		adapter = new VipRechargeAdapter(list,getContext());
+        init();
+        return view;
 
-		adapter.setSeclection(0);
+    }
 
-		mGvVip.setAdapter(adapter);
+    protected void init() {
 
-		mGvVip.setOnItemClickListener(this);
+        mGvVip = view.findViewById(R.id.gv_vip);
 
-		mImageViewWXPay = view.findViewById(R.id.iv_wx_pay);
-		mImageViewWXPay.setOnClickListener(listener);
+        initData();
 
-		mImageViewALiPay = view.findViewById(R.id.iv_ali_pay);
-		mImageViewALiPay.setOnClickListener(listener);
+        adapter = new VipRechargeAdapter(list, getContext());
 
-	}
+        adapter.setSeclection(0);
 
-	private void initData(){
-		list = new ArrayList<>();
+        mGvVip.setAdapter(adapter);
 
-		VipEntity vipEntity = new VipEntity();
-		vipEntity.setVipMonth("1个月");
-		vipEntity.setVipPrice("¥ 5.0");
+        mGvVip.setOnItemClickListener(this);
 
-		VipEntity vipEntity1 = new VipEntity();
-		vipEntity1.setVipMonth("3个月");
-		vipEntity1.setVipPrice("¥ 12.0");
+        mImageViewWXPay = view.findViewById(R.id.iv_wx_pay);
+        mImageViewWXPay.setOnClickListener(listener);
 
-		VipEntity vipEntity2 = new VipEntity();
-		vipEntity2.setVipMonth("6个月");
-		vipEntity2.setVipPrice("¥ 25.0");
+        mImageViewALiPay = view.findViewById(R.id.iv_ali_pay);
+        mImageViewALiPay.setOnClickListener(listener);
 
-		VipEntity vipEntity3 = new VipEntity();
-		vipEntity3.setVipMonth("9个月");
-		vipEntity3.setVipPrice("¥ 40.0");
+        mRlRecharegeVip = view.findViewById(R.id.rl_recharge_vip);
 
-		VipEntity vipEntity4 = new VipEntity();
-		vipEntity4.setVipMonth("12个月");
-		vipEntity4.setVipPrice("¥ 65.0");
+        mRlRecharegeVip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkData();
+            }
+        });
 
-		list.add(vipEntity);
-		list.add(vipEntity1);
-		list.add(vipEntity2);
-		list.add(vipEntity3);
-		list.add(vipEntity4);
-	}
+    }
 
-	View.OnClickListener listener = new View.OnClickListener() {
+    private void initData() {
+        list = new ArrayList<>();
 
-		@Override
-		public void onClick(View v) {
-			if (v.getId() == R.id.iv_wx_pay) {
-				setButtonOn(mImageViewWXPay);
-				//PAYFLAG = Const.WX_PAY;
-			} else {
-				setButtonOff(mImageViewWXPay);
-			}
-			if (v.getId() == R.id.iv_ali_pay) {
-				setButtonOn(mImageViewALiPay);
-				//PAYFLAG = Const.ALI_PAY;
-			} else {
-				setButtonOff(mImageViewALiPay);
-			}
-		}
-	};
+        VipEntity vipEntity = new VipEntity();
+        vipEntity.setVipMonth("1个月");
+        vipEntity.setVipPrice("¥ 5.0");
 
-	private void setButtonOff(ImageView imageView) {
-		imageView.setImageResource(R.mipmap.button_choice_pay_off);
-	}
+        VipEntity vipEntity1 = new VipEntity();
+        vipEntity1.setVipMonth("3个月");
+        vipEntity1.setVipPrice("¥ 12.0");
 
-	private void setButtonOn(ImageView imageView) {
-		imageView.setImageResource(R.mipmap.button_choice_pay_on);
-	}
+        VipEntity vipEntity2 = new VipEntity();
+        vipEntity2.setVipMonth("6个月");
+        vipEntity2.setVipPrice("¥ 25.0");
+
+        VipEntity vipEntity3 = new VipEntity();
+        vipEntity3.setVipMonth("9个月");
+        vipEntity3.setVipPrice("¥ 40.0");
+
+        VipEntity vipEntity4 = new VipEntity();
+        vipEntity4.setVipMonth("12个月");
+        vipEntity4.setVipPrice("¥ 65.0");
+
+        list.add(vipEntity);
+        list.add(vipEntity1);
+        list.add(vipEntity2);
+        list.add(vipEntity3);
+        list.add(vipEntity4);
+    }
+
+    View.OnClickListener listener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.iv_wx_pay) {
+                setButtonOn(mImageViewWXPay);
+                PAYFLAG = Const.WX_PAY;
+            } else {
+                setButtonOff(mImageViewWXPay);
+            }
+            if (v.getId() == R.id.iv_ali_pay) {
+                setButtonOn(mImageViewALiPay);
+                PAYFLAG = Const.ALI_PAY;
+            } else {
+                setButtonOff(mImageViewALiPay);
+            }
+        }
+    };
+
+    private void setButtonOff(ImageView imageView) {
+        imageView.setImageResource(R.mipmap.button_choice_pay_off);
+    }
+
+    private void setButtonOn(ImageView imageView) {
+        imageView.setImageResource(R.mipmap.button_choice_pay_on);
+    }
 
 
-	@Override
-	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-		adapter.setSeclection(i);
-		adapter.notifyDataSetChanged();
-	}
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        adapter.setSeclection(i);
+        adapter.notifyDataSetChanged();
+    }
+
+
+    //检查支付
+
+    private void checkData() {
+        String userName = PreferencesUtils.getString(getContext(), Const.USER_NAME);
+        if (TextUtils.isEmpty(userName)) {
+            Toast.makeText(getContext(), "请先登录后再试", Toast.LENGTH_SHORT).show();
+        } else {
+
+            Intent intent = new Intent(getContext(), VipByCardActivity.class);
+            startActivity(intent);
+
+//            // 执行相关操作
+//            if (Const.WX_PAY.equals(PAYFLAG)) {
+//                //wxpay();
+//                Toast.makeText(getContext(), "微信支付", Toast.LENGTH_SHORT).show();
+//            } else if (Const.ALI_PAY.equals(PAYFLAG)) {
+//                //alipay();
+//                Toast.makeText(getContext(), "支付宝支付", Toast.LENGTH_SHORT).show();
+//            }
+       }
+    }
 }

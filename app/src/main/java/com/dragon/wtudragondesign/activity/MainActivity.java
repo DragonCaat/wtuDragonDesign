@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,23 +31,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dragon.wtudragondesign.R;
+import com.dragon.wtudragondesign.bean.Const;
 import com.dragon.wtudragondesign.fragment.FragmentMain;
 import com.dragon.wtudragondesign.fragment.FragmentMessage;
 import com.dragon.wtudragondesign.fragment.FragmentMy;
 import com.dragon.wtudragondesign.receiver.NetBroadcastReceiver;
 import com.dragon.wtudragondesign.service.NewMessageService;
 import com.dragon.wtudragondesign.utils.NetUtils;
+import com.dragon.wtudragondesign.utils.PreferencesUtils;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.util.EMLog;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, EMMessageListener, NetBroadcastReceiver.NetEvent {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, NetBroadcastReceiver.NetEvent {
     public static NetBroadcastReceiver.NetEvent event;
     /**
      * 网络类型
@@ -55,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout mDrawerLayout;
     private CircleImageView mCircleMenu;
     private NavigationView navView;
+    private CircleImageView mCvHeadPhoto;
+    private TextView mTvHeadNick;
+    private TextView mTvHeadSign;
+    private TextView mTvUsername;
+
 
     private FrameLayout mFlContainer;
 
@@ -92,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static Boolean isExit = false;
 
+    private TextView mTvMessageCount;
+
+    private String headImage = "";
+
     @SuppressLint("HandlerLeak")
     public Handler handler = new Handler() {
         @Override
@@ -99,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.handleMessage(msg);
             switch (msg.what) {
                 case NOTIFICATION:
-
+                    showMessage();
                     break;
                 case EXIT_APPLICATION:
                     //finish();
@@ -115,9 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
         mCircleMenu = findViewById(R.id.circle_menu);
-
         mCircleMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,12 +148,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, NewMessageService.class);
         startService(intent);
 
-        EMClient.getInstance().chatManager().addMessageListener(this);
+        EMClient.getInstance().chatManager().addMessageListener(msgListener);
     }
 
     public void init() {
         mFlContainer = findViewById(R.id.main_contain);
-
         mLlHome = findViewById(R.id.ll_bottom_main);
         mLlHome.setOnClickListener(listener);
         mIvHome = findViewById(R.id.iv_bottom_main);
@@ -159,8 +172,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //侧滑栏的头布局
         mRlHead = (RelativeLayout) navView.getHeaderView(0);
         mRlHead.setOnClickListener(this);
+        mCvHeadPhoto = mRlHead.findViewById(R.id.icon_photo);
+        mTvHeadNick = mRlHead.findViewById(R.id.nickName);
+        mTvHeadSign= mRlHead.findViewById(R.id.user_sign);
+        mTvUsername = mRlHead.findViewById(R.id.user_name);
 
         toolbar = findViewById(R.id.toolbar1);
+
+        mTvMessageCount = findViewById(R.id.tv_message_count);
 
         mLlHome.performClick();
     }
@@ -209,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            //FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             if (view.getId() == R.id.ll_bottom_main) {
                 showFragment(fragmentMain, FragmentMain.class);
@@ -233,6 +252,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toolbar.setVisibility(View.VISIBLE);
                 mTvTitle.setText("消息");
                 mCircleMenu.setVisibility(View.GONE);
+
+                mTvMessageCount.setVisibility(View.INVISIBLE);
+                mTvMessageCount.setText("");
             } else {
                 mIvMessage.setImageResource(R.mipmap.message_normal);
                 mTvMessage.setTextColor(getResources().getColor(R.color.gray));
@@ -306,41 +328,120 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * 环信消息监听
-     */
-    @Override
-    public void onMessageReceived(List<EMMessage> list) {
-        //在此处理扩展消息
+
+    EMMessageListener msgListener = new EMMessageListener() {
+
+        @Override
+        public void onMessageReceived(List<EMMessage> messages) {
+            //收到消息
+            if (FragmentMessage.easeConversationList != null)
+                FragmentMessage.easeConversationList.refresh();
+
+            handler.sendEmptyMessage(NOTIFICATION);
+
+            for (EMMessage message : messages) {
+                message.setMsgTime(System.currentTimeMillis());
+
+                //************接收并处理扩展消息***********************
+                String userName = message.getStringAttribute("nickName", "");
+                String userPic = message.getStringAttribute("headUrl", "");
+                String hxIdFrom = message.getFrom();
+                EaseUser easeUser = new EaseUser(hxIdFrom);
+                easeUser.setAvatar(userPic);
+                easeUser.setNick(userName);
+//
+//                // 存入内存
+//                getContactList();
+//                contactList.put(hxIdFrom, easeUser);
+//                // 存入db
+//                UserDao dao = new UserDao(MainApplication.getContext());
+//                List<EaseUser> users = new ArrayList<EaseUser>();
+//                users.add(easeUser);
+//                dao.saveContactList(users);
+
+
+            }
+
+        }
+
+        @Override
+        public void onCmdMessageReceived(List<EMMessage> messages) {
+            //收到透传消息
+        }
+
+        @Override
+        public void onMessageRead(List<EMMessage> messages) {
+            //收到已读回执
+            if (FragmentMessage.easeConversationList != null)
+                FragmentMessage.easeConversationList.refresh();
+        }
+
+        @Override
+        public void onMessageDelivered(List<EMMessage> message) {
+            //收到已送达回执
+        }
+
+        @Override
+        public void onMessageRecalled(List<EMMessage> messages) {
+            //消息被撤回
+        }
+
+        @Override
+        public void onMessageChanged(EMMessage message, Object change) {
+            //消息状态变动
+        }
+    };
+
+    private void showMessage(){
+
+        mTvMessageCount.setText(""+getUnreadMsgCountTotal());
+        if (fragmentMessage!=null) {
+            boolean visible = fragmentMessage.isVisible();
+            if (visible)
+                mTvMessageCount.setVisibility(View.INVISIBLE);
+            else
+                mTvMessageCount.setVisibility(View.VISIBLE);
+        }
     }
 
-    @Override
-    public void onCmdMessageReceived(List<EMMessage> list) {
-        if (FragmentMessage.easeConversationList != null)
-            FragmentMessage.easeConversationList.refresh();
+    //设置侧滑栏数据
+    private void setHeadData(){
+        String headImage = PreferencesUtils.getString(this,Const.HEAD_IMAGE);
+        String nickName = PreferencesUtils.getString(this,Const.NICK_NAME);
+        String sign = PreferencesUtils.getString(this,Const.SIGN);
+        String userName = PreferencesUtils.getString(this,Const.USER_NAME);
+
+        if (!TextUtils.isEmpty(headImage))
+        Glide.with(this).load(Const.BASE_URL + headImage)
+                .placeholder(R.mipmap.photo).into(mCvHeadPhoto);
+
+        if (!TextUtils.isEmpty(nickName))
+            mTvHeadNick.setText(nickName);
+        else
+            mTvHeadNick.setText(userName);
+
+        if (!TextUtils.isEmpty(sign))
+
+            mTvHeadSign.setText(sign);
+        else
+            mTvHeadSign.setText("这个人很懒，什么都没留下");
+
+        mTvUsername.setText(userName);
     }
 
-    @Override
-    public void onMessageRead(List<EMMessage> list) {
-        if (FragmentMessage.easeConversationList != null)
-            FragmentMessage.easeConversationList.refresh();
-    }
+
+
 
     @Override
-    public void onMessageDelivered(List<EMMessage> list) {
+    protected void onStart() {
+        super.onStart();
+        setHeadData();
 
+        headImage = PreferencesUtils.getString(this, Const.HEAD_IMAGE);
+        if (!TextUtils.isEmpty(headImage))
+            Glide.with(this).load(Const.BASE_URL + headImage)
+                    .placeholder(R.mipmap.photo).into(mCircleMenu);
     }
-
-    @Override
-    public void onMessageRecalled(List<EMMessage> list) {
-
-    }
-
-    @Override
-    public void onMessageChanged(EMMessage emMessage, Object o) {
-
-    }
-
 
     @Override
     protected void onDestroy() {
@@ -350,6 +451,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentMy = null;
 
         isExit = false;
+        //服务销毁的时候移除监听
+        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
     }
 
     /**
@@ -435,5 +538,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             finish();
         }
+    }
+
+    // 获取未读消息总数
+    public int getUnreadMsgCountTotal() {
+        int unreadMsgCountTotal = 0;
+
+        for (EMConversation conversation : EMClient.getInstance().chatManager()
+                .getAllConversations().values()) {
+            unreadMsgCountTotal += conversation.getUnreadMsgCount();
+        }
+        return unreadMsgCountTotal;
     }
 }

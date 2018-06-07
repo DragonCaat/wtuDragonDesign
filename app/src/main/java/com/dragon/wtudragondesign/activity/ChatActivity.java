@@ -38,14 +38,14 @@ public class ChatActivity extends AppCompatActivity implements
     @Override
     public void onSetMessageAttributes(EMMessage message) {
         // 通过扩展属性，将userPic和userName发送出去。
-//		String headUrl = PreferencesUtils.getString(this, Const.HEADURL);
-//		if (!TextUtils.isEmpty(headUrl)) {
-//			message.setAttribute("headUrl", headUrl);
-//		}
-//		String nickName = PreferencesUtils.getString(this, Const.NICKNAME);
-//		if (!TextUtils.isEmpty(nickName)) {
-//			message.setAttribute("nickName", nickName);
-//		}
+		String headUrl = PreferencesUtils.getString(this, Const.HEAD_IMAGE);
+		if (!TextUtils.isEmpty(headUrl)) {
+			message.setAttribute("headUrl", headUrl);
+		}
+		String nickName = PreferencesUtils.getString(this, Const.NICK_NAME);
+		if (!TextUtils.isEmpty(nickName)) {
+			message.setAttribute("nickName", nickName);
+		}
     }
 
     @Override
